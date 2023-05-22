@@ -34,7 +34,7 @@ const ActiveDarkLink = "aria-[current=page]:dark:text-indigo-400 aria-[current=p
           
           <div className="z-50 hidden my-4 min-w-[150px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-indigo-950 dark:divide-gray-600" id="user-dropdown">
             <div className="px-4 py-3">
-              <span className="block text-sm text-gray-900 dark:text-white">Joanna</span>
+              <span className="block text-sm text-gray-900 dark:text-white">Joanna Banana</span>
               <span className="block text-sm text-gray-500 truncate dark:text-gray-300">@jojobu</span>
             </div>
 
@@ -46,7 +46,7 @@ const ActiveDarkLink = "aria-[current=page]:dark:text-indigo-400 aria-[current=p
                 <a href="#" className="block px-4 py-2 bg-white text-sm text-gray-700 hover:bg-zinc-100 dark:bg-indigo-950 dark:hover:bg-zinc-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
               </li>
               <li>
-                <a href="#" className="block px-4 py-2 bg-white text-sm text-gray-700 hover:bg-zinc-100 dark:bg-indigo-950 dark:hover:bg-zinc-600 dark:text-gray-200 dark:hover:text-white">Dark Mode</a>
+                <span className="block px-4 py-2 bg-white text-sm text-gray-700 hover:bg-zinc-100 dark:bg-indigo-950 dark:hover:bg-zinc-600 dark:text-gray-200 dark:hover:text-white">Dark Mode</span>
               </li>
             </ul>
             <ul className="py-2">
@@ -60,16 +60,13 @@ const ActiveDarkLink = "aria-[current=page]:dark:text-indigo-400 aria-[current=p
         <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-black dark:bg-gray-800 md:dark:bg-zinc-950 dark:border-gray-700">
             <li>
-              <NavLink to="/" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink} aria-current="page">Home</NavLink>
-            </li>
-            <li>
-              <a href="#" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Dashboard</a>
+              <NavLink to="/" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink} aria-current="page">Dashboard</NavLink>
             </li>
             <li>
               <NavLink to="/songs" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Songs</NavLink>
             </li>
             <li>
-              <a href="#" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Queue</a>
+              <a href="#" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Playlists</a>
             </li>
             <li>
               <a href="#" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Live</a>
