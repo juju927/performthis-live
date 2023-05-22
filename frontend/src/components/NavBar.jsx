@@ -8,8 +8,6 @@ const NavBar = () => {
 const inactiveLink = "block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-400 md:p-0 dark:text-white md:dark:hover:text-indigo-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
 const activeLink = "block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-400 md:p-0 dark:text-white md:dark:hover:text-indigo-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
 
-
-
   return (
     <>
       <nav className="bg-black border-gray-200 dark:bg-zinc-950">
@@ -32,19 +30,19 @@ const activeLink = "block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md
           
           <div className="z-50 hidden my-4 min-w-[150px] text-base list-none bg-white divide-y divide-gray-100 rounded-lg shadow dark:bg-indigo-950 dark:divide-gray-600" id="user-dropdown">
             <div className="px-4 py-3">
-              <span className="block text-sm text-gray-900 dark:text-white">juju</span>
-              <span className="block text-sm text-gray-500 truncate dark:text-gray-300">@927juju</span>
+              <span className="block text-sm text-gray-900 dark:text-white">Joanna</span>
+              <span className="block text-sm text-gray-500 truncate dark:text-gray-300">@jojobu</span>
             </div>
 
             <ul className="py-2" aria-labelledby="user-menu-button">
               <li>
-                <a href="#" className="block px-4 py-2 bg-white text-sm text-gray-700 hover:bg-zinc-100 dark:bg-indigo-950 dark:hover:bg-zinc-600 dark:text-gray-200 dark:hover:text-white">Dashboard</a>
+                <a href="#" className="block px-4 py-2 bg-white text-sm text-gray-700 hover:bg-zinc-100 dark:bg-indigo-950 dark:hover:bg-zinc-600 dark:text-gray-200 dark:hover:text-white">Profile</a>
               </li>
               <li>
                 <a href="#" className="block px-4 py-2 bg-white text-sm text-gray-700 hover:bg-zinc-100 dark:bg-indigo-950 dark:hover:bg-zinc-600 dark:text-gray-200 dark:hover:text-white">Settings</a>
               </li>
               <li>
-                <a href="#" className="block px-4 py-2 bg-white text-sm text-gray-700 hover:bg-zinc-100 dark:bg-indigo-950 dark:hover:bg-zinc-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
+                <a href="#" className="block px-4 py-2 bg-white text-sm text-gray-700 hover:bg-zinc-100 dark:bg-indigo-950 dark:hover:bg-zinc-600 dark:text-gray-200 dark:hover:text-white">Dark Mode</a>
               </li>
             </ul>
             <ul className="py-2">
