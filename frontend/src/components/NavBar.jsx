@@ -5,8 +5,12 @@ import pfp from '../images/pfp.jpg'
 
 const NavBar = () => {
 
-const inactiveLink = "block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-400 md:p-0 dark:text-white md:dark:hover:text-indigo-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
-const activeLink = "block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-400 md:p-0 dark:text-white md:dark:hover:text-indigo-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700"
+// tailwind css
+const LightLink = "block py-2 pl-3 pr-4 text-black bg-transparent rounded hover:text-indigo-400 md:p-0 "
+const DarkLink = "dark:text-white md:dark:hover:text-indigo-400 "
+const ActiveLightLink = "aria-[current=page]:text-indigo-400 "
+const ActiveDarkLink = "aria-[current=page]:dark:text-indigo-400 aria-[current=page]:dark:underline aria-[current=page]:dark:decoration-indigo-400 aria-[current=page]:dark:underline-offset-8 aria-[current=page]:dark:decoration-2"
+
 
   return (
     <>
@@ -56,19 +60,19 @@ const activeLink = "block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md
         <div className="items-center justify-between hidden w-full md:flex md:w-auto md:order-1" id="mobile-menu-2">
           <ul className="flex flex-col font-medium p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 md:mt-0 md:border-0 md:bg-black dark:bg-gray-800 md:dark:bg-zinc-950 dark:border-gray-700">
             <li>
-              <NavLink to="/" className="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded md:bg-transparent md:text-indigo-400 md:p-0 md:dark:text-indigo-500" aria-current="page">Home</NavLink>
+              <NavLink to="/" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink} aria-current="page">Home</NavLink>
             </li>
             <li>
-              <a href="#" className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-400 md:p-0 dark:text-white md:dark:hover:text-indigo-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Dashboard</a>
+              <a href="#" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Dashboard</a>
             </li>
             <li>
-              <NavLink to="/songs" className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-400 md:p-0 dark:text-white md:dark:hover:text-indigo-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Songs</NavLink>
+              <NavLink to="/songs" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Songs</NavLink>
             </li>
             <li>
-              <a href="#" className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-400 md:p-0 dark:text-white md:dark:hover:text-indigo-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Queue</a>
+              <a href="#" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Queue</a>
             </li>
             <li>
-              <a href="#" className="block py-2 pl-3 pr-4 text-black rounded hover:bg-gray-100 md:hover:bg-transparent md:hover:text-indigo-400 md:p-0 dark:text-white md:dark:hover:text-indigo-500 dark:hover:bg-gray-700 dark:hover:text-white md:dark:hover:bg-transparent dark:border-gray-700">Live</a>
+              <a href="#" className={LightLink + DarkLink + ActiveLightLink + ActiveDarkLink}>Live</a>
             </li>
           </ul>
         </div>

@@ -1915,6 +1915,16 @@ body {
   background-color: rgb(225 239 254 / var(--tw-bg-opacity));
 }
 
+.hover\:bg-indigo-100:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(229 237 255 / var(--tw-bg-opacity));
+}
+
+.hover\:bg-indigo-400:hover{
+  --tw-bg-opacity: 1;
+  background-color: rgb(141 162 251 / var(--tw-bg-opacity));
+}
+
 .hover\:text-blue-600:hover{
   --tw-text-opacity: 1;
   color: rgb(28 100 242 / var(--tw-text-opacity));
@@ -1938,6 +1948,11 @@ body {
 .hover\:text-gray-700:hover{
   --tw-text-opacity: 1;
   color: rgb(55 65 81 / var(--tw-text-opacity));
+}
+
+.hover\:text-indigo-400:hover{
+  --tw-text-opacity: 1;
+  color: rgb(141 162 251 / var(--tw-text-opacity));
 }
 
 .hover\:underline:hover{
@@ -1979,6 +1994,42 @@ body {
 .focus\:ring-blue-500:focus{
   --tw-ring-opacity: 1;
   --tw-ring-color: rgb(63 131 248 / var(--tw-ring-opacity));
+}
+
+.aria-\[current\=page\]\:bg-indigo-400[aria-current=page]{
+  --tw-bg-opacity: 1;
+  background-color: rgb(141 162 251 / var(--tw-bg-opacity));
+}
+
+.aria-\[current\=page\]\:text-blue-400[aria-current=page]{
+  --tw-text-opacity: 1;
+  color: rgb(118 169 250 / var(--tw-text-opacity));
+}
+
+.aria-\[current\=page\]\:text-white[aria-current=page]{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+.aria-\[current\=page\]\:text-indigo-400[aria-current=page]{
+  --tw-text-opacity: 1;
+  color: rgb(141 162 251 / var(--tw-text-opacity));
+}
+
+.aria-\[current\=page\]\:underline[aria-current=page]{
+  text-decoration-line: underline;
+}
+
+.aria-\[current\=page\]\:decoration-indigo-400[aria-current=page]{
+  text-decoration-color: #8DA2FB;
+}
+
+.aria-\[current\=page\]\:decoration-2[aria-current=page]{
+  text-decoration-thickness: 2px;
+}
+
+.aria-\[current\=page\]\:underline-offset-8[aria-current=page]{
+  text-underline-offset: 8px;
 }
 
 :is(.dark .dark\:divide-gray-600) > :not([hidden]) ~ :not([hidden]){
@@ -2211,6 +2262,41 @@ body {
   --tw-ring-offset-color: #1F2937;
 }
 
+:is(.dark .aria-\[current\=page\]\:dark\:text-white)[aria-current=page]{
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
+}
+
+:is(.dark .aria-\[current\=page\]\:dark\:text-indigo-500)[aria-current=page]{
+  --tw-text-opacity: 1;
+  color: rgb(104 117 245 / var(--tw-text-opacity));
+}
+
+:is(.dark .aria-\[current\=page\]\:dark\:text-indigo-400)[aria-current=page]{
+  --tw-text-opacity: 1;
+  color: rgb(141 162 251 / var(--tw-text-opacity));
+}
+
+:is(.dark .aria-\[current\=page\]\:dark\:underline)[aria-current=page]{
+  text-decoration-line: underline;
+}
+
+:is(.dark .aria-\[current\=page\]\:dark\:decoration-indigo-400)[aria-current=page]{
+  text-decoration-color: #8DA2FB;
+}
+
+:is(.dark .aria-\[current\=page\]\:dark\:decoration-4)[aria-current=page]{
+  text-decoration-thickness: 4px;
+}
+
+:is(.dark .aria-\[current\=page\]\:dark\:decoration-2)[aria-current=page]{
+  text-decoration-thickness: 2px;
+}
+
+:is(.dark .aria-\[current\=page\]\:dark\:underline-offset-8)[aria-current=page]{
+  text-underline-offset: 8px;
+}
+
 @media (min-width: 640px){
   .sm\:rounded-lg{
     border-radius: 0.5rem;
@@ -2287,6 +2373,11 @@ body {
     color: rgb(141 162 251 / var(--tw-text-opacity));
   }
 
+  .md\:hover\:text-white:hover{
+    --tw-text-opacity: 1;
+    color: rgb(255 255 255 / var(--tw-text-opacity));
+  }
+
   :is(.dark .md\:dark\:bg-gray-900){
     --tw-bg-opacity: 1;
     background-color: rgb(17 24 39 / var(--tw-bg-opacity));
@@ -2314,5 +2405,10 @@ body {
   :is(.dark .md\:dark\:hover\:text-indigo-500:hover){
     --tw-text-opacity: 1;
     color: rgb(104 117 245 / var(--tw-text-opacity));
+  }
+
+  :is(.dark .md\:dark\:hover\:text-indigo-400:hover){
+    --tw-text-opacity: 1;
+    color: rgb(141 162 251 / var(--tw-text-opacity));
   }
 }
