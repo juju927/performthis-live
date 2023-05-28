@@ -3,22 +3,8 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
-* {
-  box-sizing: border-box;
-}
-
-body {
-  color: #ffffff;
-  opacity: 0.87;
-
-  margin: 0;
-  background-color: #121212;
-}
-
-.centered {
-  margin: 3rem auto;
-  text-align: center;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 }

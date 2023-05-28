@@ -37,12 +37,12 @@ const ProfileCard = () => {
       <div className="flex flex-col items-center pt-6 pb-10">
         {/* profile header */}
         <div className="flex flex-col items-center py-3">
-          <img
-            className="w-24 h-24 mb-3 rounded-full shadow-lg ring ring-2 ring-violet-300 ring-offset-4 dark:ring-offset-violet-950"
-            src={pfp}
-            alt="jojobu image"
-          />
-          <h5 className="mb-1 text-xl font-medium text-gray-900 dark:text-white">
+          <div className="avatar">
+            <div className="w-24 mb-1 rounded-full ring ring-secondary ring-2 ring-offset-base-100 ring-offset-4">
+              <img src={pfp} />
+            </div>
+          </div>
+          <h5 className="mb-1 text-xl font-medium text-base-content">
             {name}
           </h5>
           <span className="text-sm text-gray-500 dark:text-gray-400">{`@${username}`}</span>

@@ -1,14 +1,19 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: 'class',
-  content: [
-    "./src/**/*.{html,js,jsx}",
-    "./node_modules/flowbite/**/*.js"],
+  content: ["./src/**/*.{html,js,jsx}"],
   theme: {
     extend: {},
   },
-  plugins: [
-    require('flowbite/plugin')
-  ],
-}
+  plugins: [require("daisyui")],
 
+  daisyui: {
+    styled: true,
+    themes: ["winter", "night"],
+    base: true,
+    utils: true,
+    logs: true,
+    rtl: false,
+    prefix: "",   
+    darkTheme: "night" 
+  },
+};

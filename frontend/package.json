@@ -1,5 +1,5 @@
 {
-  "name": "first-app",
+  "name": "qriku-app",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -9,7 +9,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "flowbite": "^1.6.5",
+    "autoprefixer": "^10.4.14",
+    "daisyui": "^2.51.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-router-dom": "^6.11.2"
