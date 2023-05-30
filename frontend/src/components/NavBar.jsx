@@ -1,11 +1,33 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { NavLink } from "react-router-dom";
 
 import pfp from "../images/pfp.jpg";
 
-
-
 const NavBar = () => {
+  // use theme from local storage if available or set light theme
+  const [theme, setTheme] = useState(
+    localStorage.getItem("theme") ? localStorage.getItem("theme") : "night"
+  );
+
+  // update state on toggle
+  const handleToggle = (e) => {
+    if (e.target.checked) {
+      setTheme("night");
+    } else {
+      setTheme("winter");
+    }
+  };
+
+  // set theme state in localstorage on mount & also update localstorage on state change
+  useEffect(() => {
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem("theme");
+    // add custom data-theme attribute to html tag required to update theme using DaisyUI
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+  }, [theme]);
+
+
+
   return (
     <div className="bg-base-100">
       <div className="navbar max-w-screen-xl mx-auto">
@@ -21,10 +43,10 @@ const NavBar = () => {
               <li><a>Live</a></li>
             </ul>
           </div>
-          <a className="btn btn-ghost normal-case text-xl">Qriku</a>
+          <a className="btn btn-ghost normal-case text-xl text-base-content">Qriku</a>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className="menu menu-horizontal px-1">
+          <ul className="menu menu-horizontal px-1 text-base-content">
             <li><NavLink to="/" className="bg-transparent hover:text-indigo-400 aria-[current=page]:text-indigo-400 aria-[current=page]:underline aria-[current=page]:decoration-indigo-400 aria-[current=page]:underline-offset-8 aria-[current=page]:decoration-2" aria-current="page">Dashboard</NavLink></li>
             <li><NavLink to="/songs" className="bg-transparent hover:text-indigo-400 aria-[current=page]:text-indigo-400 aria-[current=page]:underline aria-[current=page]:decoration-indigo-400 aria-[current=page]:underline-offset-8 aria-[current=page]:decoration-2" aria-current="page">Songs</NavLink></li>
             <li><NavLink to="/live" className="bg-transparent hover:text-indigo-400 aria-[current=page]:text-indigo-400 aria-[current=page]:underline aria-[current=page]:decoration-indigo-400 aria-[current=page]:underline-offset-8 aria-[current=page]:decoration-2" aria-current="page">Live</NavLink></li>
@@ -37,7 +59,7 @@ const NavBar = () => {
               <img src={pfp} />
             </div>
           </label>
-          <ul tabIndex={0} className="mt-3 shadow menu menu-compact lg:menu-normal dropdown-content bg-base-200 rounded-box w-52 text-sm">
+          <ul tabIndex={0} className="mt-3 shadow menu menu-compact lg:menu-normal dropdown-content bg-base-200 rounded-box w-52 text-sm text-base-content">
             <li>
               <div className="flex items-center">
                 <div className="avatar">
@@ -45,8 +67,8 @@ const NavBar = () => {
                     <img src={pfp} />
                   </div>
                 </div>
-                <div className="flex-col items-start">
-                  <div className="text-base">Joanna</div>
+                <div className="flex-col items-start text-base-content">
+                  <div className="">Joanna</div>
                   <div className="text-sm text-secondary">@jojobu</div>
                 </div>
 
@@ -56,7 +78,10 @@ const NavBar = () => {
             <li><a>Settings</a></li>
             <li><a>Settings2</a></li>
             <li><a>Settings3</a></li>
-            <li><a>Settings4</a></li>
+            <li>  
+              <a>Dark Mode <input type="checkbox" className="toggle toggle-primary" onChange={handleToggle} checked={theme === "winter" ? false : true} /></a>
+              
+            </li>
             <div className="divider"></div> 
             <li><a>Logout</a></li>
           </ul>
