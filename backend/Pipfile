@@ -11,6 +11,8 @@ psycopg2 = "*"
 marshmallow-sqlalchemy = "*"
 flask-migrate = "*"
 flask-bcrypt = "*"
+flask-praetorian = "*"
+flask-cors = "*"
 
 [dev-packages]
 

@@ -25,15 +25,18 @@ def get_user(id):
 def create():
     request_data = request.get_json()
 
+    if request_data['role'] == "performer":
+        role_value = "user, performer"
+
     id = uuid4()
     new_account = User(
         id = id,
         username = request_data['username'],
         email = request_data['email'],
-        password = request_data['password'],     
+        password = request_data['password'],  
+        role = role_value
         )
     
-    # this doesnt use the migrate stuff?
     db.session.add(new_account)
     db.session.commit()
 
