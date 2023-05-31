@@ -1,11 +1,10 @@
 from uuid import uuid4
 import datetime
 # from flask_bcrypt import Bcrypt
-from db import db
+# from db import db
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
-
-
+from extensions import (db, bcrypt) 
 
 
 #  creates the table
@@ -24,8 +23,8 @@ class User(db.Model):
         self.id = id,
         self.username = username
         self.email = email
-        # self.password = bcrypt.generate_password_hash(password)
-        self.password = password
+        self.password = bcrypt.generate_password_hash(password)
+        # self.password = password
         self.is_performer = is_performer
         self.registered_on = datetime.datetime.now()
 
