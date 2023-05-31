@@ -4,9 +4,9 @@ from flask import request
 # from db import db
 from extensions import db
 
-# only works for one
+# only works for one item being returned
 user_schema = UserSchema()
-# add this line to make it work for many
+# works for more than one item being returned
 users_schema = UserSchema(many=True)
 
 def index():

@@ -11,9 +11,10 @@ from extensions import (
     migrate,
 )
 
-def create_app():
+def create_app(config_object="config"):
   app = Flask(__name__)
-  app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
+  app.config.from_object(config_object)
+  # app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get('SQLALCHEMY_DATABASE_URI')
   bcrypt.init_app(app)
   migrate.init_app(app, db)
   db.init_app(app)
