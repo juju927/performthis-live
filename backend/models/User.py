@@ -4,7 +4,6 @@ from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
 from extensions import (db, bcrypt) 
 
-
 #  creates the table
 class User(db.Model):
     __tablename__ = "users"
