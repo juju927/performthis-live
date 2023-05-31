@@ -1,7 +1,7 @@
 from uuid import uuid4
 from models.User import User, UserSchema
 from flask import request
-# from db import db
+
 from extensions import db
 
 # only works for one item being returned
