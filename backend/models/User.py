@@ -2,9 +2,11 @@ from uuid import uuid4
 import datetime
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 
-from extensions import (db, bcrypt) 
+from extensions import (db, bcrypt)
 
 #  creates the table
+
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -42,9 +44,15 @@ class User(db.Model):
         # required by praetorian
         return self.password
 
+    @password.setter
+    def password(self):
+        pass
+        # todo : figure out why self.password = value causes recursion max out
+        # todo : why no col
+
     @classmethod
     def lookup(cls, username):
-        #required by praetorian
+        # required by praetorian
         return cls.query.filter_by(username=username).one_or_none()
 
     @classmethod
@@ -53,13 +61,12 @@ class User(db.Model):
         return cls.query.get(id)
 
     def is_valid(self):
-        return self.is_active    
+        return self.is_active
 
 #  creates item in the table
+
+
 class UserSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = User
         # exclude = ["password"] # so password is not returned when queried
-
-
-

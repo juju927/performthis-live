@@ -9,6 +9,7 @@ user_schema = UserSchema()
 # works for more than one item being returned
 users_schema = UserSchema(many=True)
 
+
 def login():
     req = request.get_json(force=True)
 
@@ -18,17 +19,20 @@ def login():
     ret = {'access_token': guard.encode_jwt_token(user)}
     return ret, 200
 
+
 def refresh():
     print("refresh request")
     old_token = request.get_data()
     new_token = guard.refresh_jwt_token(old_token)
     ret = {'access_token': new_token}
     return ret, 200
-  
+
+
 def index():
-    users = User.query.all() # sqlalchemy db model
+    users = User.query.all()  # sqlalchemy db model
     result = users_schema.dump(users)
     return result
+
 
 def get_user(id):
     user = User.query.get(id)
@@ -38,25 +42,25 @@ def get_user(id):
 # def index2():
 #     users = User.query.join(tablename, id=tablename2.user_id).filter()
 
+
 def create():
     request_data = request.get_json()
-
+    print('Im in!')
     if request_data['role'] == "performer":
         role_value = "user, performer"
 
     id = uuid4()
     new_account = User(
-        id = id,
-        username = request_data['username'],
-        email = request_data['email'],
-        password = request_data['password'],  
-        role = role_value
-        )
-    
+        id=id,
+        username=request_data['username'],
+        email=request_data['email'],
+        password=request_data['password'],
+        role=role_value
+    )
+    print('User is here')
     db.session.add(new_account)
     db.session.commit()
-
+    print('User been committed')
     user = User.query.get(id)
     response = user_schema.dump(user)
     return response
-
