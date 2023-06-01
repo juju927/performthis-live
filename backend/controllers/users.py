@@ -45,7 +45,7 @@ def get_user(id):
 
 def create():
     request_data = request.get_json()
-    print('Im in!')
+
     if request_data['role'] == "performer":
         role_value = "user, performer"
 
@@ -57,10 +57,10 @@ def create():
         password=request_data['password'],
         role=role_value
     )
-    print('User is here')
+
     db.session.add(new_account)
     db.session.commit()
-    print('User been committed')
+
     user = User.query.get(id)
     response = user_schema.dump(user)
     return response
