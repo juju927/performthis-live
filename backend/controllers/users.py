@@ -25,7 +25,6 @@ def refresh():
     ret = {'access_token': new_token}
     return ret, 200
   
-
 def index():
     users = User.query.all() # sqlalchemy db model
     result = users_schema.dump(users)
