@@ -24,6 +24,7 @@ app = create_app()
 
 app.register_blueprint(users, url_prefix="/users")
 
+from models.User import User
 
 if __name__ == '__main__':
     app.run(debug=True)
