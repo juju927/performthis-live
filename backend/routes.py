@@ -1,7 +1,7 @@
 from flask import Blueprint
 
 from controllers.users import login, refresh, index, get_user, create
-from controllers.songs import get_all_songs, get_songs_by_artist, get_songs_by_title, create_song
+from controllers.songs import get_all_songs, get_songs_by_artist_or_title, create_song
 
 users = Blueprint('users', __name__)
 users.route('/login', methods=['POST'])(login)
@@ -13,6 +13,5 @@ users.route('/create/', methods=['POST'])(create)
 
 songs = Blueprint('songs', __name__)
 songs.route('/')(get_all_songs)
-songs.route('/<artist>')(get_songs_by_artist)
-songs.route('/<title>')(get_songs_by_title)
+songs.route('/<search_key>')(get_songs_by_artist_or_title)
 songs.route('/create/', methods=['POST'])(create_song)

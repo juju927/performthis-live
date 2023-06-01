@@ -37,12 +37,9 @@ def get_all_songs():
     result = songs_schema.dump(songs)
     return result
 
-def get_songs_by_artist(artist):
-    songs = Song.query.filter_by(artist= artist)
-    result = songs_schema.dump(songs)
-    return result
-
-def get_songs_by_title(title):
-    songs = Song.query.filter_by(title= title)
+def get_songs_by_artist_or_title(search_key):
+    search = f"%{search_key}%"
+    songs = Song.query.filter((Song.artist.ilike(search) | Song.title.ilike(search)))
+    # ilike makes it like BUT case insensitive
     result = songs_schema.dump(songs)
     return result
