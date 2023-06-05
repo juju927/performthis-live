@@ -20,7 +20,7 @@ from ..utilities.http_code import HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
 user_schema = UserSchema()
 
-def create_user():
+def register_user():
     """
     It creates a new user
     :param request: The request object
