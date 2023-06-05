@@ -1,7 +1,7 @@
 from flask import Blueprint
 
 from .controllers.test import home
-from .controllers.auth import create_user
+from .controllers.auth import create_user, login_user
 from .controllers.users import get_all_users, get_user
 from .controllers.songs import get_all_songs, get_songs_by_artist_or_title, create_song
 
@@ -10,6 +10,7 @@ test.route('/')(home)
 
 auth = Blueprint('auth', __name__)
 auth.route('/create/', methods=['POST'])(create_user)
+auth.route('/login/', methods=['POST'])(login_user)
 
 
 users = Blueprint('users', __name__)

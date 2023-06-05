@@ -25,20 +25,7 @@ class CreateSignupInputSchema(Schema):
 # library. The Field class is a class that validates values
 class CreateLoginInputSchema(Schema):
     # the 'required' argument ensures the field exists
-    email = fields.Email(required=True)
+    username = fields.Str(required=True)
     password = fields.Str(required=True, validate=validate.Length(min=8))
 
-
-# "The CreateResetPasswordEmailSendInputSchema class is a schema that validates the input for the
-# create_reset_password_email_send function."
-#
-# The CreateResetPasswordEmailSendInputSchema class is a schema that validates the input for the
-# create_reset_password_email_send function
-class CreateResetPasswordEmailSendInputSchema(Schema):
-    # the 'required' argument ensures the field exists
-    email = fields.Email(required=True)
-
-class ResetPasswordInputSchema(Schema):
-    # the 'required' argument ensures the field exists
-    password = fields.Str(required=True, validate=validate.Length(min=8))
 
