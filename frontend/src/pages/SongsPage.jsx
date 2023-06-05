@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { fetchData } from '../../helpers/common'
 import SongItem from '../components/SongItem'
-import ProfileCard from '../components/ProfileCard'
 
 const SongLibraryPage = () => {
   const [songs, setSongs] = useState([])
