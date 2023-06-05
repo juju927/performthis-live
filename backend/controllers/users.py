@@ -1,14 +1,14 @@
 from uuid import uuid4
-from models.User import User, UserSchema
+from ..models.User import User, UserSchema
 from flask import request
+import flask_praetorian
 
-from extensions import db, guard, bcrypt
+from ..extensions import db, guard, bcrypt
 
 # only works for one item being returned
 user_schema = UserSchema()
 # works for more than one item being returned
 users_schema = UserSchema(many=True)
-
 
 def login():
     req = request.get_json(force=True)
@@ -28,30 +28,40 @@ def refresh():
     return ret, 200
 
 
-def index():
+@flask_praetorian.auth_required
+def protected():
+    """
+    A protected endpoint. The auth_required decorator will require a header
+    containing a valid JWT
+    .. example::
+       $ curl http://localhost:5000/api/protected -X GET \
+         -H "Authorization: Bearer <your_token>"
+    """
+    return {'message': f'protected endpoint (allowed user {flask_praetorian.current_user().username})'}
+
+
+
+def get_all_users():
     users = User.query.all()  # sqlalchemy db model
     result = users_schema.dump(users)
     return result
 
 
-def get_user(id):
-    user = User.query.get(id)
+def get_user(search_key):
+    user = User.query.filter((User.username==search_key) | (User.email==search_key)).one_or_none()
     result = user_schema.dump(user)
     return result
 
-# def index2():
-#     users = User.query.join(tablename, id=tablename2.user_id).filter()
 
-
-def create():
+def create_user():
     request_data = request.get_json()
 
-    if request_data['role'] == "performer":
+    if "role" in request_data:
         role_value = "user, performer"
+    else:
+        role_value = "user"
 
-    id = uuid4()
     new_account = User(
-        id=id,
         username=request_data['username'],
         email=request_data['email'],
         password=request_data['password'],
@@ -61,6 +71,6 @@ def create():
     db.session.add(new_account)
     db.session.commit()
 
-    user = User.query.get(id)
-    response = user_schema.dump(user)
+    # user = new_account
+    response = user_schema.dump(new_account)
     return response
