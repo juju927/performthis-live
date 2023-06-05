@@ -23,6 +23,7 @@ app.register_blueprint(auth, url_prefix="/auth")
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(songs, url_prefix="/songs")
 
+from .models import User, Song, UserSong
 
 if __name__ == '__main__':
     app.run(debug=True)
