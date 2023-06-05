@@ -8,8 +8,8 @@ songs_schema = SongSchema(many=True)
 
 # for optional body parameters
 def optional(key, dict):
-    if key in dict:
-        return dict.key
+    if key in dict.keys():
+        return dict[key]
     else:
         return ""
 

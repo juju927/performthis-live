@@ -6,7 +6,6 @@ from .extensions import (
     migrate, 
     cors
 )
-from .models.User import User
 
 def create_app(config_file="config.py"):
   app = Flask(__name__)

@@ -2,12 +2,10 @@ from uuid import uuid4
 import datetime
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from flask_bcrypt import generate_password_hash, check_password_hash
-from ..extensions import (db, bcrypt)
+from ..extensions import db
 from sqlalchemy.dialects.postgresql import UUID
 
 #  creates the table
-
-
 class User(db.Model):
     __tablename__ = "users"
 
