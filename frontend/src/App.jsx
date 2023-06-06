@@ -10,27 +10,13 @@ import LivePage from "./pages/LivePage";
 
 function App() {
 
-  // const testConnect = async () => {
-  //   const {ok, data} = await fetchData('/test/')
-
-  //   if (ok) {
-  //     console.log(data)
-  //   } else {
-  //     console.log(data)
-  //   }
-  // }
-
-  // useEffect(()=>{
-  //   testConnect()
-  // }, [])
 
 
   return (
-    <div className="w-screen h-screen flex flex-col">
-      <div className="flex-none">
-        <NavBar />
-      </div>
-      <div className="max-w-screen-xl flex-grow flex mx-auto p-4">
+    <div className="w-screen h-screen">
+      <NavBar />
+      {/* not sure how to set height here */}
+      <div className="max-w-screen-xl overflow-auto mx-auto"> 
       {/* main body */}
         <Routes>
           <Route path="/" element={<DashboardPage />} />
