@@ -1,5 +1,5 @@
 from flask import Flask
-from .routes import test, auth, users, songs
+from .routes import test, auth, users, songs, user_songs
 from .extensions import (
     bcrypt,
     db,
@@ -23,6 +23,7 @@ app.register_blueprint(test, url_prefix="/test")
 app.register_blueprint(auth, url_prefix="/auth")
 app.register_blueprint(users, url_prefix="/users")
 app.register_blueprint(songs, url_prefix="/songs")
+app.register_blueprint(user_songs, url_prefix="/usersongs")
 
 from .models import User, UserProfile, UserSetting, Song, UserSong, SongQueue, LiveSession
 

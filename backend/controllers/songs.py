@@ -1,4 +1,3 @@
-from uuid import uuid4
 from ..models.Song import Song, SongSchema
 from flask import request
 from ..extensions import db
@@ -20,7 +19,7 @@ def create_song():
         title = request_data['title'],
         artist = request_data['artist'],
         alt_title_1 = optional('alt_title_1', request_data),
-        alt_title_2 = optional('alt_title_2', request_data), # do if / dictionary comprehension
+        alt_title_2 = optional('alt_title_2', request_data), 
     )
 
     db.session.add(new_song)
