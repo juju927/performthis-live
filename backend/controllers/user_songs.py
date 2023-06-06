@@ -33,15 +33,15 @@ def get_user_songs(user_id):
 def post_user_songs():
     request_data = request.get_json()
 
-    check_song_in_database = Song.query.filter((Song.artist.ilike(request_data['artist'])), ((Song.title.ilike(request_data['title'])) | (Song.alt_title_1.ilike(request_data['title'])) | (Song.alt_title_2.ilike(request_data['title'])))).first()
+    check_song_in_database = Song.query.filter((Song.artist.ilike(request_data['artist'])), ((Song.title.ilike(request_data['title'])) | (Song.alt_title_1.ilike(request_data['title'])) | (Song.alt_title_2.ilike(request_data['title'])))).one_or_none()
 
-    if check_song_in_database:
+    if check_song_in_database is not None:
         song_id = check_song_in_database.id
         print(song_id)
         
-        check_song_in_user_songs = UserSong.query.filter(UserSong.song_id == song_id, UserSong.user_id == request_data['user_id']) 
+        check_song_in_user_songs = UserSong.query.filter(UserSong.song_id == song_id, UserSong.user_id == request_data['user_id']).one_or_none()
         print(check_song_in_user_songs)
-        if check_song_in_user_songs:
+        if check_song_in_user_songs is not None:
             return generate_response(
               message="Song already in user list!", status=HTTP_400_BAD_REQUEST
             )
@@ -56,7 +56,7 @@ def post_user_songs():
         db.session.add(new_song)
         db.session.commit()
 
-        song_id = new_song.song_id
+        song_id = new_song.id
 
     new_user_song = UserSong(
         user_id = request_data['user_id'],
