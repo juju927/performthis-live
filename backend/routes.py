@@ -2,7 +2,8 @@ from flask import Blueprint
 
 from .controllers.test import home
 from .controllers.auth import register_user, login_user
-from .controllers.users import get_all_users, get_user
+from .controllers.users import get_all_users, get_user, patch_user
+from .controllers.user_profiles import get_user_profile, update_user_profile
 from .controllers.songs import get_all_songs, get_songs_by_artist_or_title, create_song
 from .controllers.user_songs import get_all_user_songs, get_user_songs, post_user_songs
 from .controllers.live_sessions import get_all_live_sessions, post_live_session, get_user_live_sessions, get_live_session, end_live_session, delete_live_session
@@ -17,7 +18,12 @@ auth.route('/login/', methods=['POST'])(login_user)
 
 users = Blueprint('users', __name__)
 users.route('/')(get_all_users)
-users.route('/<search_key>')(get_user)
+users.route('/user', methods=['GET'])(get_user)
+users.route('/user', methods=['PATCH'])(patch_user)
+
+user_profiles = Blueprint('user_profiles', __name__)
+user_profiles.route('/user/', methods=['GET'])(get_user_profile)
+user_profiles.route('/user/', methods=['PATCH'])(update_user_profile)
 
 songs = Blueprint('songs', __name__)
 songs.route('/', methods=['GET'])(get_all_songs)
