@@ -37,12 +37,8 @@ def patch_user():
         return generate_response(
             message="user not found", status=HTTP_404_NOT_FOUND
         )
-
-    # make a copy of request data, and remove user_id
-    new_data = {**request_data}
-    del new_data["user_id"]
-    
-    User.query.filter(User.id == request_data['user_id']).update(new_data)
+ 
+    User.query.filter(User.id == request_data['user_id']).update({'username': request_data['username']})
     db.session.commit()
 
     return generate_response(
