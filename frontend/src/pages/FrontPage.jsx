@@ -20,7 +20,7 @@ const FrontPage = (props) => {
     })
 
     if (ok) {
-      userDetails.setToucan = data.data.token
+      userDetails.setToucan(data.data.token)
       props.setLoggedIn(true)
     } else {
       console.log(data);

@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { fetchData } from '../../helpers/common'
 import SongItem from '../components/SongItem'
 import pfp from '../images/pfp.jpg'
 
+import UserContext from "../context/user"
+
 const SongLibraryPage = () => {
+  const userDetails = useContext(UserContext)
   const [songs, setSongs] = useState([])
 
   const getSongs = async () => {
-    const {ok, data} = await fetchData('/user-songs/user/')
+    console.log(userDetails.toucan)
+    const {ok, data} = await fetchData('user-songs/user/', userDetails.toucan, "GET")
 
     if (ok) {
       setSongs(data)

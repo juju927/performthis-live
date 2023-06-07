@@ -13,11 +13,13 @@ def token_required(f):
         # ensure the jwt-token is passed with the headers
         if 'Authorization' in request.headers:
             token = request.headers['Authorization'].replace('Bearer ', '')
+            print('token', token)
         if not token: # throw error if no token provided
             return make_response(jsonify({"message": "A valid token is missing!"}), 401)
         try:
            # decode the token to obtain user public_id
-            data = jwt.decode(token, SECRET_KEY, algorithms=['HS256'])
+            data = jwt.decode(token, SECRET_KEY)
+            print('data', data)
             current_user = User.query.filter_by(id=data['id']).first()
         except:
             return make_response(jsonify({"message": "Invalid token!"}), 401)
