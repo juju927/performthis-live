@@ -85,11 +85,13 @@ def login_user():
                 "id": str(get_user.id),
                 "email": get_user.email,
                 "username": get_user.username,
-                "exp": datetime.datetime.utcnow() + datetime.timedelta(minutes=30),
+                "is_performer": get_user.is_performer,
+                "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
             },
             SECRET_KEY,
         )
         input_data["token"] = token
+        del input_data['password']
         return generate_response(
             data=input_data, message="User login successfully", status=HTTP_201_CREATED
         )

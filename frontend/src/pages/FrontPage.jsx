@@ -1,7 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
+import jwt_decode from 'jwt-decode';
 import { fetchData } from '../../helpers/common'
 
-const FrontPage = () => {
+import UserContext from "../context/user";
+
+const FrontPage = (props) => {
+  const userDetails = useContext(UserContext)
   const [form, setForm] = useState('register')
 
   const [username, setUsername] = useState("")
@@ -16,8 +20,11 @@ const FrontPage = () => {
     })
 
     if (ok) {
-      console.log('ok');
-      console.log(data)
+      userDetails.setToucan = data.data.token
+      const decoded = jwt_decode(data.data.token);
+      userDetails.setUserID(decoded.id)
+      userDetails.setIsPerformer(decoded.is_performer);
+      props.setLoggedIn(true)
     } else {
       console.log(data);
     }
@@ -32,8 +39,7 @@ const FrontPage = () => {
     })
 
     if (ok) {
-      console.log('ok');
-      console.log(data)
+      login()
     } else {
       console.log(data)
     }
