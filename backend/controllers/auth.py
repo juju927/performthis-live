@@ -1,15 +1,13 @@
-from ..models.User import User, UserSchema
-from ..extensions import db
 from flask import request
-
+from flask_bcrypt import generate_password_hash
+import datetime
 import json
 import jwt
-import datetime
-from ..config import SECRET_KEY
-# from users.helper import send_forgot_password_email
-from ..models.User import User
 
-from flask_bcrypt import generate_password_hash
+from ..extensions import db
+from ..models.User import User, UserSchema
+from ..config import SECRET_KEY
+from ..models.User import User
 
 from ..validators.users import (
     CreateLoginInputSchema,

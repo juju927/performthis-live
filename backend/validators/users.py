@@ -21,3 +21,5 @@ class CreateLoginInputSchema(Schema):
     password = fields.Str(required=True, validate=validate.Length(min=8))
 
 
+
+

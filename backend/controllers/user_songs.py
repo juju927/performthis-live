@@ -1,9 +1,8 @@
+from flask import request
+
 from ..models.UserSong import UserSong, UserSongSchema
 from ..models.Song import Song, SongSchema
-from ..models.User import User
-from flask import request
 from ..extensions import db
-from sqlalchemy.dialects.postgresql import UUID
 
 from ..utilities.common import generate_response
 from ..utilities.http_code import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
@@ -25,26 +24,32 @@ def get_all_user_songs():
     result = user_songs_schema.dump(songs)
     return result
 
-def get_user_songs(user_id):
-    songs = UserSong.query.filter(UserSong.user_id == user_id)
+def get_user_songs():
+    request_data = request.json()
+
+    songs = UserSong.query.filter(UserSong.user_id == request_data['user_id'])
     result = user_songs_schema.dump(songs)
     return result
 
 def post_user_songs():
     request_data = request.get_json()
 
+
     check_song_in_database = Song.query.filter((Song.artist.ilike(request_data['artist'])), ((Song.title.ilike(request_data['title'])) | (Song.alt_title_1.ilike(request_data['title'])) | (Song.alt_title_2.ilike(request_data['title'])))).one_or_none()
 
+    #  if song is alr in song database, extract its id
     if check_song_in_database is not None:
         song_id = check_song_in_database.id
-        print(song_id)
         
+        # if song is alr in user's song list, escape the function
         check_song_in_user_songs = UserSong.query.filter(UserSong.song_id == song_id, UserSong.user_id == request_data['user_id']).one_or_none()
-        print(check_song_in_user_songs)
+
         if check_song_in_user_songs is not None:
             return generate_response(
               message="Song already in user list!", status=HTTP_400_BAD_REQUEST
             )
+  
+    # if song is not alr in song database, make a new entry in the song database
     else:
         new_song = Song(
           title = request_data['title'],
@@ -56,8 +61,10 @@ def post_user_songs():
         db.session.add(new_song)
         db.session.commit()
 
+        # and extract the new song id from the song database
         song_id = new_song.id
 
+    # create new entry in user songs
     new_user_song = UserSong(
         user_id = request_data['user_id'],
         song_id = song_id

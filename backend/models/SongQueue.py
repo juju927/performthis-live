@@ -17,9 +17,15 @@ class SongQueue(db.Model):
     requester_so = db.Column(db.Text)
     is_completed = db.Column(db.Boolean, nullable=False)
 
-    def __init__(self):
+    def __init__(self, **kwargs):
+        self.live_session_id = kwargs.get('live_session_id')
+        self.user_song_id = kwargs.get('user_song_id')
         self.added_at = datetime.datetime.now()
+        self.requester_so = kwargs.get('requester_so')
         self.is_completed = False
+        
+    def add_requester_so(self, requester_so):
+        self.requester_so += f",,, {requester_so}"
 
 
 class SongQueueSchema(SQLAlchemyAutoSchema):
