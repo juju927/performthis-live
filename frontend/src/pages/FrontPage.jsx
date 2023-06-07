@@ -21,9 +21,6 @@ const FrontPage = (props) => {
 
     if (ok) {
       userDetails.setToucan = data.data.token
-      const decoded = jwt_decode(data.data.token);
-      userDetails.setUserID(decoded.id)
-      userDetails.setIsPerformer(decoded.is_performer);
       props.setLoggedIn(true)
     } else {
       console.log(data);

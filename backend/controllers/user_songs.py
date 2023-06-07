@@ -4,6 +4,7 @@ from ..models.UserSong import UserSong, UserSongSchema
 from ..models.Song import Song, SongSchema
 from ..extensions import db
 
+from ..middleware.auth import token_required
 from ..utilities.common import generate_response
 from ..utilities.http_code import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
 
@@ -24,16 +25,16 @@ def get_all_user_songs():
     result = user_songs_schema.dump(songs)
     return result
 
-def get_user_songs():
-    request_data = request.json()
+@token_required
+def get_user_songs(current_user):
+    # request_data = request.json()
 
-    songs = UserSong.query.filter(UserSong.user_id == request_data['user_id'])
+    songs = UserSong.query.filter(UserSong.user_id == current_user['user_id'])
     result = user_songs_schema.dump(songs)
     return result
 
 def post_user_songs():
     request_data = request.get_json()
-
 
     check_song_in_database = Song.query.filter((Song.artist.ilike(request_data['artist'])), ((Song.title.ilike(request_data['title'])) | (Song.alt_title_1.ilike(request_data['title'])) | (Song.alt_title_2.ilike(request_data['title'])))).one_or_none()
 

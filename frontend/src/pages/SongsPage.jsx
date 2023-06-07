@@ -7,7 +7,7 @@ const SongLibraryPage = () => {
   const [songs, setSongs] = useState([])
 
   const getSongs = async () => {
-    const {ok, data} = await fetchData('/songs/')
+    const {ok, data} = await fetchData('/user-songs/user/')
 
     if (ok) {
       setSongs(data)
@@ -87,7 +87,7 @@ const SongLibraryPage = () => {
               <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
             </svg>
           </div>
-          
+
         </div>
 
         {/* song list */}

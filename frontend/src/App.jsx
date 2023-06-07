@@ -14,14 +14,11 @@ import LivePage from "./pages/LivePage";
 function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [toucan, setToucan] = useState("")
-  const [userID, setUserID] = useState("")
-  const [isPerformer, setIsPerformer] = useState("")
-
 
   return (
     <>
       <UserContext.Provider
-      value={{toucan, setToucan, userID, setUserID, isPerformer, setIsPerformer}}>
+      value={{toucan, setToucan}}>
         <div className="w-screen h-screen">
           { !loggedIn && <FrontPage setLoggedIn={setLoggedIn}/>}
 
