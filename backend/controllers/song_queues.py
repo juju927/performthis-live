@@ -6,8 +6,9 @@ from ..models.UserSong import UserSong
 from ..models.Song import Song, SongSchema
 from ..extensions import db
 
+from ..middleware.auth import token_required
 from ..utilities.common import generate_response
-from ..utilities.http_code import HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
+from ..utilities.http_code import HTTP_200_OK, HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND
 
 song_queue_schema = SongQueueSchema()
 song_queues_schema = SongQueueSchema(many=True)
@@ -82,7 +83,9 @@ def get_song_queue():
             result.append(song_queue_item)
     return result
 
-def mark_song_as_complete():
+# for followup: check if current_user is session's user_id
+@token_required
+def mark_song_as_complete(current_user):
     request_data = request.get_json()
 
     song = SongQueue.query.filter(SongQueue.id == request_data['song_queue_id']).one_or_none()
@@ -96,10 +99,12 @@ def mark_song_as_complete():
         SongQueue.query.filter(SongQueue.id == request_data['song_queue_id']).update({"is_completed": True })
         db.session.commit()
         return generate_response(
-            message="song marked as complete"
+            message="song marked as complete", status=HTTP_200_OK
         )
 
-def delete_song_from_queue():
+# for followup: check if current_user is session's user_id
+@token_required
+def delete_song_from_queue(current_user):
     request_data = request.get_json()
 
     song = SongQueue.query.filter(SongQueue.id == request_data['song_queue_id'])
@@ -114,6 +119,6 @@ def delete_song_from_queue():
         db.session.commit()
 
         return generate_response(
-            message="song removed from queue"
+            message="song removed from queue", status=HTTP_200_OK
         )
 

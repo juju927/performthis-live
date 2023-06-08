@@ -40,7 +40,6 @@ const LivePage = () => {
     } else {
       console.log(data)
     }
-
   }
 
   useEffect(()=> {
@@ -68,7 +67,7 @@ const LivePage = () => {
       
       {/* queue list */}
       {songQueue.map((song, idx) => (
-        <SongQueueItem id={song.id} key={`songQ ${idx}`} song={song} />
+        !song.is_completed && <SongQueueItem id={song.id} key={`songQ ${idx}`} song={song} getSongQueue={getSongQueue} />
       ))}
     </>
   )
