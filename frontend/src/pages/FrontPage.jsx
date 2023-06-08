@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { fetchData } from "../../helpers/common";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +15,8 @@ const FrontPage = (props) => {
   const [password, setPassword] = useState("");
   const [isPerformer, setIsPerformer] = useState(false);
 
+  
+
   const login = async () => {
     const { ok, data } = await fetchData("auth/login/", undefined, "POST", {
       username: username,
@@ -23,8 +25,8 @@ const FrontPage = (props) => {
 
     if (ok) {
       userDetails.setToucan(data.data.token);
-      
-      props.setLoggedIn(true);
+      console.log(data.data.token)
+      localStorage.setItem("toucan", data.data.token)
       navigate("/songs")
     } else {
       console.log(data);
@@ -53,6 +55,12 @@ const FrontPage = (props) => {
       login();
     }
   };
+  
+  useEffect(()=> {
+    if (userDetails.toucan) {
+      navigate("/songs")
+    }
+  })
 
   return (
     <div className="w-screen h-screen">

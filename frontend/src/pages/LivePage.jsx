@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
+import { useParams } from 'react-router-dom'
 import { fetchData } from '../../helpers/common'
-import { MegaphoneIcon, StopCircleIcon } from '@heroicons/react/24/outline'
 import jwt_decode from 'jwt-decode'
 import moment from 'moment'
 
@@ -9,14 +9,15 @@ import SongQueueItem from '../components/SongQueueItem'
 
 const LivePage = () => {
   const userDetails = useContext(UserContext)
+  const {username} = useParams()
   const [live, setLive] = useState(false)
   const [session, setSession] = useState({})
   const [songQueue, setSongQueue] = useState([])
+  const [authorised, setAuthorised] = useState(false)
 
-  const checkOnline = async () => {
+  const checkOnline = async (username) => {
     const { ok, data } = await fetchData('/live-sessions/session/', undefined, "POST", {
-      'performer_id': jwt_decode(userDetails.toucan).id
-      // 'performer_id': 'de6c2823-485c-4833-9355-fb6024b256a6'
+      'username': username
     })
 
     if (ok) {
@@ -82,8 +83,20 @@ const LivePage = () => {
     }
   }
 
+  const handleCheckOnline = () => {
+    if (!username) {
+      checkOnline(jwt_decode(userDetails.toucan).username);
+    } else {
+      checkOnline(username);
+    }
+  }
+
   useEffect(()=> {
-    checkOnline();
+    if (!username) {
+      checkOnline(jwt_decode(userDetails.toucan).username);
+    } else {
+      checkOnline(username);
+    }
   }, [])
 
   useEffect(()=> {
@@ -92,6 +105,15 @@ const LivePage = () => {
     }
   }, [session])
 
+  useEffect(()=> {
+    if (Object.keys(userDetails).length > 0) {
+      if (userDetails.username == username) {
+        setAuthorised(true)
+      }
+    }
+  })
+
+
   return (
     <>
       <div className="flex flex-col flex-gap-3 w-100 m-6 p-3 rounded-md bg-base-100 text-center text-base-content">
@@ -99,7 +121,7 @@ const LivePage = () => {
           { live ? (
             <>
               <div className="text-center text-base-content text-xl">
-                You are currently <br />
+                { authorised ? 'You are currently' : `${username} is currently` }<br />
                 <span className="font-bold uppercase tracking-wide"> ✨ taking requests ✨ </span>
               </div>
               <div className="text-center text-base-content text-xs italic">
@@ -110,7 +132,7 @@ const LivePage = () => {
             (
             <>
               <div className="text-center text-base-content text-base">
-                You are currently <br />
+              { authorised ? 'You are currently' : `${username} is currently` }<br />
                 <span className="font-bold uppercase tracking-wide"> 💤 NOT taking requests 💤 </span>
               </div>
             </>)}
@@ -120,18 +142,24 @@ const LivePage = () => {
 
       {/* the no time problem */}
       <div className='w-100 text-center'>
-      { live ? (
+      { authorised && (
         <>
-          <div className='btn' onClick={endCurrentSession}>end current session</div>
-          <div className='btn' onClick={deleteCurrentSession}>delete current session</div> 
-        </>
+          { live ? (
+            <>
+              <div className='btn' onClick={endCurrentSession}>end current session</div>
+              <div className='btn' onClick={deleteCurrentSession}>delete current session</div> 
+            </>
+    
+            ): (
+              <div className='btn' onClick={startNewSession}>start new session</div>
+            )}
+        
+        </>)}
 
-        ): (
-          <div className='btn' onClick={startNewSession}>start new session</div>
-        )}
-        <div className='btn' onClick={checkOnline}>check online</div>
+        <div className='btn' onClick={handleCheckOnline}>check online</div>
         <div className='btn' onClick={getSongQueue}>refresh song queue</div>
       </div>
+      
       
       {/* queue list */}
       <div className="w-100 mx-6 px-3 text-xl"> 

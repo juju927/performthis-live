@@ -1,5 +1,7 @@
-import React, { useState, useEffect } from 'react'
-import { NavLink } from "react-router-dom";
+import React, { useState, useEffect, useContext } from 'react'
+import { NavLink, useNavigate } from "react-router-dom";
+import UserContext from "../context/user"
+
 
 import pfp from "../images/pfp.jpg";
 
@@ -8,6 +10,8 @@ const NavBar = () => {
   const [theme, setTheme] = useState(
     localStorage.getItem("theme") ? localStorage.getItem("theme") : "night"
   );
+  const userDetails = useContext(UserContext)
+  const navigate = useNavigate()
 
   // update state on toggle
   const handleToggle = (e) => {
@@ -17,6 +21,12 @@ const NavBar = () => {
       setTheme("winter");
     }
   };
+
+  const logout = () => {
+    userDetails.setToucan("")
+    localStorage.removeItem("toucan")
+    navigate("/")
+  }
 
   // set theme state in localstorage on mount & also update localstorage on state change
   useEffect(() => {
@@ -83,7 +93,7 @@ const NavBar = () => {
               
             </li>
             <div className="divider"></div> 
-            <li><a>Logout</a></li>
+            <li><a onClick={logout}>Logout</a></li>
           </ul>
           </div>
         </div>

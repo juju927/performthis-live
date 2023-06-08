@@ -34,7 +34,7 @@ def get_all_user_songs():
 
 def get_user_songs():
     request_data = request.get_json()
-    print(request_data)
+
     user = User.query.filter(User.username == request_data['username']).first()
 
     if user is None:

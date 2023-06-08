@@ -1,6 +1,7 @@
 from flask import request
 
 from ..models.LiveSession import LiveSession, LiveSessionSchema
+from ..models.User import User
 from ..extensions import db
 
 from ..middleware.auth import token_required
@@ -47,7 +48,14 @@ def get_user_live_sessions():
 def get_live_session():
     request_data = request.get_json()
 
-    session = LiveSession.query.filter(LiveSession.user_id == request_data['performer_id'], LiveSession.is_completed == False).first()
+    user = User.query.filter(User.username == request_data['username']).first()
+
+    if user is None:
+        return generate_response(
+            message="user not found", status=HTTP_404_NOT_FOUND
+        )
+
+    session = LiveSession.query.filter(LiveSession.user_id == user.id, LiveSession.is_completed == False).first()
     print(session)
 
     result = live_session_schema.dump(session)
