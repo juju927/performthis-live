@@ -5,7 +5,7 @@ from ..extensions import db
 
 from ..middleware.auth import token_required
 from ..utilities.common import generate_response
-from ..utilities.http_code import HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND 
+from ..utilities.http_code import HTTP_200_OK, HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND 
 
 live_session_schema = LiveSessionSchema()
 live_sessions_schema = LiveSessionSchema(many=True)
@@ -33,7 +33,7 @@ def post_live_session(current_user):
         db.session.commit()
 
         return generate_response(
-            data=new_live_session.id, message="new live session started"
+            data=live_session_schema.dump(new_live_session), message="new live session started", status=HTTP_200_OK
         )
 
 def get_user_live_sessions():
@@ -74,31 +74,34 @@ def end_live_session(current_user):
         db.session.commit()
 
         return generate_response(
-          message="live session ended"
+          message="live session ended", status=HTTP_200_OK
         )
     
 @token_required 
 def delete_live_session(current_user):
     request_data = request.get_json()
 
-    session = LiveSession.query.filter(LiveSession.id == request_data['session_id'])
+    session = LiveSession.query.filter(LiveSession.id == request_data['session_id']).first()
 
     if session is None:
+
         return generate_response(
             message="live session not found", status=HTTP_404_NOT_FOUND
         )
     
     if session.user_id != current_user.id:
+
         return generate_response(
             message="not authorised to delete session", status=HTTP_403_FORBIDDEN
         ) 
     
     else:
+
         LiveSession.query.filter(LiveSession.id == request_data['session_id']).delete()
         db.session.commit()
 
         return generate_response(
-            message="live session deleted"
+            message="live session deleted", status=HTTP_200_OK
         )
 
 

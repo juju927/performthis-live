@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { fetchData } from '../../helpers/common'
+import { MegaphoneIcon, StopCircleIcon } from '@heroicons/react/24/outline'
 import jwt_decode from 'jwt-decode'
 import moment from 'moment'
 
@@ -21,6 +22,7 @@ const LivePage = () => {
     if (ok) {
       if (Object.keys(data).length == 0) {
         setLive(false);
+        setSession(data)
       } else {
         setLive(true);
         setSession(data)
@@ -42,6 +44,44 @@ const LivePage = () => {
     }
   }
 
+  const endCurrentSession = async () => {
+    const { ok, data } = await fetchData('/live-sessions/session/', userDetails.toucan, "PATCH", {
+      'session_id': session.id
+    })
+
+    if (ok) {
+      setSession({})
+      setLive(false)
+      setSongQueue([])
+    } else {
+      console.log(data)
+    }
+  }
+
+  const deleteCurrentSession = async () => {
+    const { ok, data } = await fetchData('/live-sessions/session/', userDetails.toucan, "DELETE", {
+      'session_id': session.id
+    })
+
+    if (ok) {
+      setSession({})
+      setLive(false)
+      setSongQueue([])
+    } else {
+      console.log(data)
+    }
+  }
+
+  const startNewSession = async () => {
+    const { ok, data } = await fetchData('/live-sessions/', userDetails.toucan, "POST")
+    
+    if (ok) {
+      setSession(data.data)
+    } else {
+      console.log(data)
+    }
+  }
+
   useEffect(()=> {
     checkOnline();
   }, [])
@@ -54,18 +94,52 @@ const LivePage = () => {
 
   return (
     <>
-      <div className="w-100 m-6 p-3 rounded-md bg-base-100 text-center text-base-content">
-        <p>You are currently <span className="text-bold" >{live ? 'live' : 'offline'}</span><br />
-        <i>Session started {moment(session.started_at).fromNow()}</i></p>
+      <div className="flex flex-col flex-gap-3 w-100 m-6 p-3 rounded-md bg-base-100 text-center text-base-content">
+        <div className="">
+          { live ? (
+            <>
+              <div className="text-center text-base-content text-xl">
+                You are currently <br />
+                <span className="font-bold uppercase tracking-wide"> ✨ taking requests ✨ </span>
+              </div>
+              <div className="text-center text-base-content text-xs italic">
+                Session started {moment(session.started_at).fromNow()}
+              </div>
+
+            </>) : 
+            (
+            <>
+              <div className="text-center text-base-content text-base">
+                You are currently <br />
+                <span className="font-bold uppercase tracking-wide"> 💤 NOT taking requests 💤 </span>
+              </div>
+            </>)}
+
+        </div>
       </div>
 
       {/* the no time problem */}
       <div className='w-100 text-center'>
+      { live ? (
+        <>
+          <div className='btn' onClick={endCurrentSession}>end current session</div>
+          <div className='btn' onClick={deleteCurrentSession}>delete current session</div> 
+        </>
+
+        ): (
+          <div className='btn' onClick={startNewSession}>start new session</div>
+        )}
         <div className='btn' onClick={checkOnline}>check online</div>
         <div className='btn' onClick={getSongQueue}>refresh song queue</div>
       </div>
       
       {/* queue list */}
+      <div className="w-100 mx-6 px-3 text-xl"> 
+        Queue
+      </div>
+      { songQueue.length == 0 && (
+        <div className="text-center m-6">Queue is empty!</div>
+      ) }
       {songQueue.map((song, idx) => (
         !song.is_completed && <SongQueueItem id={song.id} key={`songQ ${idx}`} song={song} getSongQueue={getSongQueue} />
       ))}
