@@ -18,11 +18,11 @@ auth.route('/login/', methods=['POST'])(login_user)
 
 users = Blueprint('users', __name__)
 users.route('/')(get_all_users)
-users.route('/user', methods=['GET'])(get_user)
+users.route('/user', methods=['POST'])(get_user)
 users.route('/user', methods=['PATCH'])(patch_user)
 
 user_profiles = Blueprint('user_profiles', __name__)
-user_profiles.route('/user/', methods=['GET'])(get_user_profile)
+user_profiles.route('/user/', methods=['POST'])(get_user_profile)
 user_profiles.route('/user/', methods=['PATCH'])(update_user_profile)
 
 songs = Blueprint('songs', __name__)

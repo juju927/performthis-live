@@ -20,9 +20,8 @@ def optional(key, dict):
 def get_user_profile():
     request_data = request.get_json()
 
-    profile = UserProfile.query.filter(UserProfile.user_id == request_data['user_id'])
+    profile = UserProfile.query.filter(UserProfile.user_id == request_data['user_id']).first()
     result = user_profile_schema.dump(profile)
-
     return result
 
 def update_user_profile():

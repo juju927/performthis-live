@@ -169,7 +169,7 @@ const LivePage = () => {
         <div className="text-center m-6">Queue is empty!</div>
       ) }
       {songQueue.map((song, idx) => (
-        !song.is_completed && <SongQueueItem id={song.id} key={`songQ ${idx}`} song={song} getSongQueue={getSongQueue} />
+        !song.is_completed && <SongQueueItem id={song.id} key={`songQ ${idx}`} song={song} getSongQueue={getSongQueue} authorised={authorised} />
       ))}
     </>
   )

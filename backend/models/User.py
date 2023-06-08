@@ -26,6 +26,7 @@ class User(db.Model):
         self.is_performer = kwargs.get("is_performer")
         self.registered_on = datetime.datetime.now()
 
+
     def __repr__(self):
         """
         The __repr__ function is used to return a string representation of the object

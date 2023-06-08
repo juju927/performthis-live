@@ -6,6 +6,7 @@ import jwt
 
 from ..extensions import db
 from ..models.User import User, UserSchema
+from ..models.UserProfile import UserProfile
 from ..config import SECRET_KEY
 from ..models.User import User
 
@@ -52,8 +53,16 @@ def register_user():
         password=input_data['password'],
         is_performer=input_data['is_performer']
     )  
+
+    new_user_profile = UserProfile(
+        user_id = new_user.id,
+        display_name = input_data['username'],
+        description = "probably a gr8 human"
+    )
+
     new_user.hash_password()
     db.session.add(new_user)  # Adds new User record to database
+    db.session.add(new_user_profile)
     db.session.commit() 
     del input_data["password"]
     return generate_response(

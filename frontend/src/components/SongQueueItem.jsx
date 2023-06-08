@@ -60,28 +60,33 @@ const SongQueueItem = (props) => {
         <div className='text-sm italic text-base-content'>{props.song.artist}</div>
       </div>
 
-      { !active && (
+      { props.authorised && (
         <>
-          {/* play button */}
-          <div className='flex-none w-fit btn btn-ghost' onClick={()=> setActive(true)}>
-            <PlayIcon className="h-6 w-6 text-base-content" aria-hidden="true" />
-          </div>
-
-          {/* delete button */}
-          <div className='flex-none w-fit btn btn-ghost' onClick={removeFromQueue}>
-            <TrashIcon className="h-6 w-6 text-base-content" aria-hidden="true" />
-          </div>
-        </>
-      ) }
-
-      { active && (
-        <>
-          {/* done button */}
-          <div className='flex-none w-fit btn btn-ghost' onClick={markAsComplete}>
-            <CheckIcon className="h-6 w-6 text-base-content" aria-hidden="true" />
-          </div>
+        { !active && (
+          <>
+            {/* play button */}
+            <div className='flex-none w-fit btn btn-ghost' onClick={()=> setActive(true)}>
+              <PlayIcon className="h-6 w-6 text-base-content" aria-hidden="true" />
+            </div>
+  
+            {/* delete button */}
+            <div className='flex-none w-fit btn btn-ghost' onClick={removeFromQueue}>
+              <TrashIcon className="h-6 w-6 text-base-content" aria-hidden="true" />
+            </div>
+          </>
+        ) }
+  
+        { active && (
+          <>
+            {/* done button */}
+            <div className='flex-none w-fit btn btn-ghost' onClick={markAsComplete}>
+              <CheckIcon className="h-6 w-6 text-base-content" aria-hidden="true" />
+            </div>
+          </>
+        )}
         </>
       )}
+
 
     </div>
   )

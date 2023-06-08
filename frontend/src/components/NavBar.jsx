@@ -76,13 +76,13 @@ const NavBar = () => {
                 className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52"
               >
                 <li>
-                  <a>Dashboard</a>
+                  <NavLink to="/dashboard">Dashboard</NavLink>
                 </li>
                 <li>
-                  <a>Songs</a>
+                  <NavLink to="/songs">Songs</NavLink>
                 </li>
                 <li>
-                  <a>Live</a>
+                  <NavLink to="/live">Live</NavLink>
                 </li>
               </ul>
             </div>
@@ -97,7 +97,7 @@ const NavBar = () => {
             <ul className="menu menu-horizontal px-1 text-base-content">
               <li>
                 <NavLink
-                  to="/"
+                  to="/dashboard"
                   className="bg-transparent hover:text-indigo-400 aria-[current=page]:text-indigo-400 aria-[current=page]:underline aria-[current=page]:decoration-indigo-400 aria-[current=page]:underline-offset-8 aria-[current=page]:decoration-2"
                   aria-current="page"
                 >
