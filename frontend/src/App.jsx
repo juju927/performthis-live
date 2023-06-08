@@ -19,14 +19,14 @@ function App() {
     <>
       <UserContext.Provider
       value={{toucan, setToucan}}>
-        <div className="w-screen h-screen">
+        <div className="w-screen h-screen bg-base-200">
           { !loggedIn && <FrontPage setLoggedIn={setLoggedIn}/>}
 
           { loggedIn && (
             <>
               <NavBar />
               {/* not sure how to set height here */}
-              <div className="max-w-screen-xl overflow-auto mx-auto"> 
+              <div className="max-w-screen-xl overflow-auto mx-auto bg-transparent"> 
               {/* main body */}
                 <Routes>
                   <Route path="/" element={<DashboardPage />} />

@@ -33,7 +33,7 @@ const SongItem = (props) => {
 
       <div className='flex-1 mx-3'>
         <div className='text-xl font-bold text-base-content'>{props.title}</div>
-        <div className='text-sm italic'>{props.artist}</div>
+        <div className='text-sm italic text-base-content'>{props.artist}</div>
       </div>
 
 
