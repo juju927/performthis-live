@@ -13,6 +13,7 @@ import pfp from "../images/pfp.jpg";
 const SongLibraryPage = () => {
   const userDetails = useContext(UserContext);
   const {username} = useParams()
+  const [performer, setPerformer] = useState("")
   const [songs, setSongs] = useState([]);
   const [showAddSongModal, setShowAddSongModal] = useState(false)
   const [authorised, setAuthorised] = useState(false)
@@ -23,7 +24,7 @@ const SongLibraryPage = () => {
       userDetails.toucan,
       "POST",
       {
-        "username": username,
+        performer_username: username,
       }
     );
 
@@ -36,9 +37,9 @@ const SongLibraryPage = () => {
 
   useEffect(() => {
     if (!username) {
-      getSongs(jwt_decode(userDetails.toucan).username);
+      setPerformer(jwt_decode(userDetails.toucan).username)
     } else {
-      getSongs(username)
+      setPerformer(username)
     }
   }, [showAddSongModal]);
 
@@ -50,15 +51,21 @@ const SongLibraryPage = () => {
     }
   }, [])
 
+  useEffect(()=> {
+    if (performer) {
+      getSongs(performer)
+    }
+  }, [performer])
+
   return (
     <>
       <div className="flex pt-5">
         {/* artist display  */}
         <div className="hidden md:flex">
           <div className="pt-5 p-3 w-48 flex flex-col items-center ">
-            <div className="avatar">
+            <div className="avatar placeholder">
               <div className="w-24 mb-1 rounded-full ring ring-secondary ring-2 ring-offset-base-100 ring-offset-4">
-                <img src={pfp} />
+                <span className="text-3xl uppercase">{performer.charAt(0)}</span>
               </div>
             </div>
 
@@ -66,7 +73,7 @@ const SongLibraryPage = () => {
               <div className="pt-3 text-xs font-bold uppercase text-secondary tracking-wide">
                 Artist
               </div>
-              <div className="">{username}</div>
+              <div className="text-center">{performer}</div>
             </div>
           </div>
         </div>
@@ -140,6 +147,7 @@ const SongLibraryPage = () => {
               artist={song.artist}
               title={song.title}
               authorised={authorised}
+              performer={performer}
             />
           ))}
         </div>

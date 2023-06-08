@@ -50,7 +50,7 @@ const SongItem = (props) => {
       </div>
       )}
 
-      <SongRequestModal showSongRequestModal={showSongRequestModal} setShowSongRequestModal={setShowSongRequestModal} song_id={props.id} title={props.title} artist={props.artist} />
+      <SongRequestModal showSongRequestModal={showSongRequestModal} setShowSongRequestModal={setShowSongRequestModal} song_id={props.id} title={props.title} artist={props.artist} performer={props.performer} />
 
     </div>
   )

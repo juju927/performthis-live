@@ -1,7 +1,7 @@
 from flask import request
 
 from ..models.UserProfile import UserProfile, UserProfileSchema
-from ..models.User import User
+from ..models.User import User, UserSchema
 from ..extensions import db
 
 from ..utilities.common import generate_response
@@ -20,9 +20,9 @@ def optional(key, dict):
 def get_user_profile():
     request_data = request.get_json()
 
-    # doesn't work, can't dump joined table
-    profile = db.session.query(UserProfile, User.username).join(User, UserProfile.user_id == User.id).filter(User.username == request_data['username'])
+    profile = UserProfile.query.filter(UserProfile.user_id == request_data['user_id'])
     result = user_profile_schema.dump(profile)
+
     return result
 
 def update_user_profile():

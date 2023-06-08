@@ -3,6 +3,7 @@ from flask import request
 from ..models.SongQueue import SongQueue, SongQueueSchema
 from ..models.LiveSession import LiveSession
 from ..models.UserSong import UserSong
+from ..models.User import User
 from ..models.Song import Song, SongSchema
 from ..extensions import db
 
@@ -22,8 +23,16 @@ def get_all_song_queues():
 
 def add_song_to_queue():
     request_data = request.get_json()
+    print(request_data)
+    user = User.query.filter(User.username == request_data['performer_username']).first()
 
-    check_active_session = LiveSession.query.filter(LiveSession.user_id == request_data['performer_id'], LiveSession.is_completed == False).one_or_none()
+    if user is None:
+        return generate_response(
+            message="user not found", status=HTTP_404_NOT_FOUND
+        )
+
+
+    check_active_session = LiveSession.query.filter(LiveSession.user_id == user.id, LiveSession.is_completed == False).one_or_none()
 
     if check_active_session is None:
         return generate_response(
