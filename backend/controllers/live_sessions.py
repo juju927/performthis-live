@@ -3,8 +3,9 @@ from flask import request
 from ..models.LiveSession import LiveSession, LiveSessionSchema
 from ..extensions import db
 
+from ..middleware.auth import token_required
 from ..utilities.common import generate_response
-from ..utilities.http_code import HTTP_400_BAD_REQUEST, HTTP_404_NOT_FOUND 
+from ..utilities.http_code import HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND 
 
 live_session_schema = LiveSessionSchema()
 live_sessions_schema = LiveSessionSchema(many=True)
@@ -14,11 +15,9 @@ def get_all_live_sessions():
     result = live_sessions_schema.dump(sessions)
     return result
 
-
-def post_live_session():
-    request_data = request.get_json()
-
-    check_active_session = LiveSession.query.filter(LiveSession.user_id == request_data['user_id'], LiveSession.is_completed == False).one_or_none()
+@token_required
+def post_live_session(current_user):
+    check_active_session = LiveSession.query.filter(LiveSession.user_id == current_user.id, LiveSession.is_completed == False).one_or_none()
 
     if check_active_session is not None:
         return generate_response(
@@ -27,7 +26,7 @@ def post_live_session():
 
     else:
         new_live_session = LiveSession(
-            user_id = request_data['user_id']
+            user_id = current_user.id
         )
 
         db.session.add(new_live_session)
@@ -48,12 +47,14 @@ def get_user_live_sessions():
 def get_live_session():
     request_data = request.get_json()
 
-    session = LiveSession.query.filter(LiveSession.id == request_data['session_id'])
+    session = LiveSession.query.filter(LiveSession.user_id == request_data['performer_id'], LiveSession.is_completed == False).first()
+    print(session)
 
     result = live_session_schema.dump(session)
     return result
 
-def end_live_session():
+@token_required
+def end_live_session(current_user):
     request_data = request.get_json()
 
     session = LiveSession.query.filter(LiveSession.id == request_data['session_id'], LiveSession.is_completed == False).one_or_none()
@@ -62,7 +63,12 @@ def end_live_session():
         return generate_response(
             message="live session not found", status=HTTP_404_NOT_FOUND
         )
-        
+
+    if session.user_id != current_user.id:
+        return generate_response(
+            message="not authorised to end session", status=HTTP_403_FORBIDDEN
+        ) 
+
     else:
         LiveSession.query.filter(LiveSession.id == request_data['session_id']).update({'is_completed': True})
         db.session.commit()
@@ -71,8 +77,8 @@ def end_live_session():
           message="live session ended"
         )
     
-    
-def delete_live_session():
+@token_required 
+def delete_live_session(current_user):
     request_data = request.get_json()
 
     session = LiveSession.query.filter(LiveSession.id == request_data['session_id'])
@@ -81,6 +87,11 @@ def delete_live_session():
         return generate_response(
             message="live session not found", status=HTTP_404_NOT_FOUND
         )
+    
+    if session.user_id != current_user.id:
+        return generate_response(
+            message="not authorised to delete session", status=HTTP_403_FORBIDDEN
+        ) 
     
     else:
         LiveSession.query.filter(LiveSession.id == request_data['session_id']).delete()

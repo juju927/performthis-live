@@ -23,7 +23,7 @@ export default function SongRequestModal(props) {
       setRequesterSO(requester + ' - ' + shoutout)
     }
 
-    const {ok, data} = await fetchData('song-queues/session/', undefined, "POST", {
+    const {ok, data} = await fetchData('song-queues/session/', undefined, "PUT", {
       // this needs to be changed to performer id eventually
       "performer_id": "ba18b96e-7504-44dd-919f-37cbe001413a",
       "song_id": props.song_id,

@@ -31,3 +31,4 @@ class SongQueue(db.Model):
 class SongQueueSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = SongQueue
+        include_fk = True

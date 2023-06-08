@@ -3,6 +3,7 @@ from flask import request
 from ..models.SongQueue import SongQueue, SongQueueSchema
 from ..models.LiveSession import LiveSession
 from ..models.UserSong import UserSong
+from ..models.Song import Song, SongSchema
 from ..extensions import db
 
 from ..utilities.common import generate_response
@@ -11,12 +12,14 @@ from ..utilities.http_code import HTTP_201_CREATED, HTTP_202_ACCEPTED, HTTP_400_
 song_queue_schema = SongQueueSchema()
 song_queues_schema = SongQueueSchema(many=True)
 
+songs_schema = SongSchema(many=True)
+
 def get_all_song_queues():
     queues = SongQueue.query.all()
     result = song_queues_schema.dump(queues)
     return result
 
-def post_song_to_queue():
+def add_song_to_queue():
     request_data = request.get_json()
 
     check_active_session = LiveSession.query.filter(LiveSession.user_id == request_data['performer_id'], LiveSession.is_completed == False).one_or_none()
@@ -70,7 +73,13 @@ def get_song_queue():
         )
     
     else:
-        result = song_queues_schema.dump(queue)
+        song_queue = db.session.query(SongQueue.id, SongQueue.live_session_id, SongQueue.song_id, SongQueue.added_at, SongQueue.requester_so, SongQueue.is_completed, Song.artist, Song.title).join(Song).filter(SongQueue.live_session_id == request_data['live_session_id']).all()
+        song_queue_details = song_queues_schema.dump(song_queue)
+        song_details = songs_schema.dump(song_queue)
+        result = []
+        for i in range(len(song_queue_details)):
+            song_queue_item = {**song_queue_details[i], **song_details[i]}
+            result.append(song_queue_item)
     return result
 
 def mark_song_as_complete():
