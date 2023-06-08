@@ -152,13 +152,13 @@ const NavBar = () => {
                 </li>
                 <div className="divider"></div>
                 <li>
-                  <a>Settings</a>
+                  <a>Coming Soon ™ </a>
                 </li>
                 <li>
-                  <a>Settings2</a>
+                  <a>Coming Soon ™</a>
                 </li>
                 <li>
-                  <a>Settings3</a>
+                  <a>Coming Soon ™</a>
                 </li>
                 <li>
                   <a>
