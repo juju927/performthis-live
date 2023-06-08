@@ -11,15 +11,15 @@ class SongQueue(db.Model):
     id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid4)
     live_session_id = db.Column(db.UUID, db.ForeignKey(
         'live_sessions.id'), nullable=False)
-    user_song_id = db.Column(db.UUID, db.ForeignKey(
-        'user_songs.id'), nullable=False)
+    song_id = db.Column(db.UUID, db.ForeignKey(
+        'songs.id'), nullable=False)
     added_at = db.Column(db.DateTime, nullable=False)
     requester_so = db.Column(db.Text)
     is_completed = db.Column(db.Boolean, nullable=False)
 
     def __init__(self, **kwargs):
         self.live_session_id = kwargs.get('live_session_id')
-        self.user_song_id = kwargs.get('user_song_id')
+        self.song_id = kwargs.get('song_id')
         self.added_at = datetime.datetime.now()
         self.requester_so = kwargs.get('requester_so')
         self.is_completed = False

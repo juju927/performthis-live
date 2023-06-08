@@ -26,18 +26,18 @@ def post_song_to_queue():
             message="live session not found", status=HTTP_404_NOT_FOUND
         )
 
-    check_user_song = UserSong.query.filter(UserSong.id == request_data['user_song_id']).one_or_none()
+    check_user_song = UserSong.query.filter(UserSong.id == request_data['song_id']).one_or_none()
 
     if check_user_song is None:
         return generate_response(
             message="user song not found", status=HTTP_404_NOT_FOUND
         )
 
-    check_song_in_session = SongQueue.query.filter(SongQueue.live_session_id == request_data['live_session_id'], SongQueue.user_song_id == request_data['user_song_id'], SongQueue.is_completed == False).one_or_none()
+    check_song_in_session = SongQueue.query.filter(SongQueue.live_session_id == request_data['live_session_id'], SongQueue.song_id == request_data['song_id'], SongQueue.is_completed == False).one_or_none()
 
     # check again this might not be possible
     if check_song_in_session is not None:
-        the_song = SongQueue.query.filter(SongQueue.live_session_id == request_data['live_session_id'], SongQueue.user_song_id == request_data['user_song_id'], SongQueue.is_completed == False).first()
+        the_song = SongQueue.query.filter(SongQueue.live_session_id == request_data['live_session_id'], SongQueue.song_id == request_data['song_id'], SongQueue.is_completed == False).first()
         the_song.add_requester_so(request_data['requester_so'])
         db.session.commit()
 
@@ -49,7 +49,7 @@ def post_song_to_queue():
 
       new_song_queue = SongQueue(
           live_session_id = request_data['live_session_id'],
-          user_song_id = request_data['user_song_id']
+          song_id = request_data['song_id']
       )
       new_song_queue.add_requester_so(request_data['requester_so'])
 

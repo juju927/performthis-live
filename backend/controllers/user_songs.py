@@ -6,7 +6,7 @@ from ..extensions import db
 
 from ..middleware.auth import token_required
 from ..utilities.common import generate_response
-from ..utilities.http_code import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST
+from ..utilities.http_code import HTTP_200_OK, HTTP_201_CREATED, HTTP_400_BAD_REQUEST, HTTP_403_FORBIDDEN, HTTP_404_NOT_FOUND
 
 user_song_schema = UserSongSchema()
 user_songs_schema = UserSongSchema(many=True)
@@ -46,7 +46,7 @@ def get_user_songs():
 
 
 @token_required
-def post_user_songs(current_user):
+def post_user_song(current_user):
     request_data = request.get_json()
 
     check_song_in_database = Song.query.filter((Song.artist.ilike(request_data['artist'])), ((Song.title.ilike(request_data['title'])) | (
@@ -91,4 +91,28 @@ def post_user_songs(current_user):
 
     return generate_response(
         message="Song added", status=HTTP_200_OK
+    )
+
+
+@token_required
+def delete_user_song(current_user):
+    request_data = request.get_json()
+
+    user_song = UserSong.query.filter(UserSong.id == request_data['user_song_id']).first()
+
+
+    if user_song is None:
+        return generate_response(
+            message="song not found", status=HTTP_404_NOT_FOUND
+        )
+    if current_user.id != user_song.user_id:
+        return generate_response(
+            message="not authorised to delete song", status=HTTP_403_FORBIDDEN
+        )
+    
+    db.session.delete(user_song)
+    db.session.commit()
+
+    return generate_response(
+        message="Song deleted", status=HTTP_200_OK
     )

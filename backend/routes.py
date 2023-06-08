@@ -5,7 +5,7 @@ from .controllers.auth import register_user, login_user
 from .controllers.users import get_all_users, get_user, patch_user
 from .controllers.user_profiles import get_user_profile, update_user_profile
 from .controllers.songs import get_all_songs, get_songs_by_artist_or_title, create_song
-from .controllers.user_songs import get_all_user_songs, get_user_songs, post_user_songs
+from .controllers.user_songs import get_all_user_songs, get_user_songs, post_user_song, delete_user_song
 from .controllers.live_sessions import get_all_live_sessions, post_live_session, get_user_live_sessions, get_live_session, end_live_session, delete_live_session
 from .controllers.song_queues import get_all_song_queues, get_song_queue, post_song_to_queue, mark_song_as_complete, delete_song_from_queue
 
@@ -32,7 +32,8 @@ songs.route('/<search_key>/')(get_songs_by_artist_or_title)
 
 user_songs = Blueprint('user_songs', __name__)
 user_songs.route('/', methods=['GET'])(get_all_user_songs) 
-user_songs.route('/', methods=['POST'])(post_user_songs)
+user_songs.route('/', methods=['POST'])(post_user_song)
+user_songs.route('/', methods=['DELETE'])(delete_user_song)
 user_songs.route('/user/', methods=['POST'])(get_user_songs)
 
 live_sessions = Blueprint('live_sessions', __name__)
