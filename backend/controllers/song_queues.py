@@ -65,7 +65,7 @@ def add_song_to_queue():
 def get_song_queue():
     request_data = request.get_json()
 
-    queue = SongQueue.query.filter(SongQueue.live_session_id == request_data['live_session_id']).one_or_none()
+    queue = SongQueue.query.filter(SongQueue.live_session_id == request_data['live_session_id']).all()
 
     if queue is None:
         return generate_response(

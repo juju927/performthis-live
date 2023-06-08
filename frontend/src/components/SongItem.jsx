@@ -43,7 +43,7 @@ const SongItem = (props) => {
         <SparklesIcon className="h-6 w-6 text-accent-content" aria-hidden="true" />
       </div>
 
-      {/* delete buttin */}
+      {/* delete button */}
       <div className='flex-none w-fit btn btn-ghost' onClick={deleteSong}>
         <TrashIcon className="h-6 w-6 text-base-content" aria-hidden="true" />
       </div>
