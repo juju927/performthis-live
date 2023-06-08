@@ -21,7 +21,7 @@ class SongQueue(db.Model):
         self.live_session_id = kwargs.get('live_session_id')
         self.song_id = kwargs.get('song_id')
         self.added_at = datetime.datetime.now()
-        self.requester_so = kwargs.get('requester_so')
+        self.requester_so = ''
         self.is_completed = False
         
     def add_requester_so(self, requester_so):

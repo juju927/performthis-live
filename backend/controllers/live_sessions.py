@@ -14,6 +14,7 @@ def get_all_live_sessions():
     result = live_sessions_schema.dump(sessions)
     return result
 
+
 def post_live_session():
     request_data = request.get_json()
 

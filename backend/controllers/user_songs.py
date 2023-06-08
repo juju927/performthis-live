@@ -98,7 +98,7 @@ def post_user_song(current_user):
 def delete_user_song(current_user):
     request_data = request.get_json()
 
-    user_song = UserSong.query.filter(UserSong.id == request_data['user_song_id']).first()
+    user_song = UserSong.query.filter(UserSong.song_id == request_data['song_id']).first()
 
 
     if user_song is None:

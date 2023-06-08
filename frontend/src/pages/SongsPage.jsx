@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from "react";
 import jwt_decode from "jwt-decode";
 import { fetchData } from "../../helpers/common";
-import SongItem from "../components/SongItem";
-import pfp from "../images/pfp.jpg";
+import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
 import UserContext from "../context/user";
+
 import AddSongModal from "../components/AddSongModal";
+import SongItem from "../components/SongItem";
+import pfp from "../images/pfp.jpg";
 
 const SongLibraryPage = () => {
   const userDetails = useContext(UserContext);
@@ -31,7 +33,7 @@ const SongLibraryPage = () => {
 
   useEffect(() => {
     getSongs();
-  }, []);
+  }, [showAddSongModal]);
 
   return (
     <>
@@ -63,14 +65,14 @@ const SongLibraryPage = () => {
           </div>
 
           {/* action bar */}
-          <div className="w-100 h-8 px-3 flex gap-x-3 my-2">
+          <div className="w-100 h-auto px-3 flex gap-x-3 my-2">
             {/* select options */}
             {/* <div className=''>
             <input type="checkbox" className="checkbox checkbox-secondary" />
           </div> */}
 
             {/* sort function */}
-            <div className="w-auto rounded-md">
+            {/* <div className="w-auto rounded-md">
               <select className="" name="sortBy">
                 <option value="" selected="selected">
                   Sort by:
@@ -78,10 +80,10 @@ const SongLibraryPage = () => {
                 <option value="artist">Artist</option>
                 <option value="title">Title</option>
               </select>
-            </div>
+            </div> */}
 
             {/* search bar */}
-            <div className="flex outline outline-accent outline-1 rounded-md">
+            {/* <div className="flex outline outline-accent outline-1 rounded-md">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 20 20"
@@ -95,7 +97,7 @@ const SongLibraryPage = () => {
                 />
               </svg>
               <input className="mx-3 flex-grow outline-none rounded-md" />
-            </div>
+            </div> */}
 
             {/* delete */}
             {/* <div className='rounded-md btn btn-ghost'>
@@ -106,23 +108,10 @@ const SongLibraryPage = () => {
 
             {/* add */}
             <button
-              className="rounded-md btn btn-ghost"
+              className="rounded-md btn btn-primary text-primary-content"
               onClick={()=> setShowAddSongModal(true)}
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4.5v15m7.5-7.5h-15"
-                />
-              </svg>
+              <PlusCircleIcon className="h-6 w-6 text-primary-content" /> Add song 
             </button>
           </div>
 
