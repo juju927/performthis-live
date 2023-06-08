@@ -2,10 +2,13 @@ from uuid import uuid4
 import datetime
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from flask_bcrypt import generate_password_hash, check_password_hash
-from ..extensions import db
 from sqlalchemy.dialects.postgresql import UUID
+from marshmallow import fields
 
-#  creates the table
+
+from ..extensions import db
+from .UserProfile import UserProfileSchema
+
 class User(db.Model):
     __tablename__ = "users"
 
@@ -47,10 +50,21 @@ class User(db.Model):
         return check_password_hash(self.password, password)
     
    
-#  creates item in the table
-
-
 class UserSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = User
-        # exclude = ["password"] # so password is not returned when queried
+        exclude = ["password"] # so password is not returned when queried
+
+class UserPublicSchema(SQLAlchemyAutoSchema):
+    class Meta:
+        model = User
+    fields = ('username', 'is_performer')
+
+class UserPublicProfileSchema(SQLAlchemyAutoSchema):
+    userPublicData = fields.Nested(UserPublicSchema)
+    userProfileData = fields.Nested(UserProfileSchema)
+
+
+    #     class SideBySideSchema(ma.ModelSchema):
+    # packMetaData = fields.Nested(PackMatDataSchema)
+    # colorData = fields.Nested(ColorDataSchema)

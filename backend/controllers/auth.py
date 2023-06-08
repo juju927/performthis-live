@@ -88,7 +88,7 @@ def login_user():
                 "is_performer": get_user.is_performer,
                 "exp": datetime.datetime.utcnow() + datetime.timedelta(days=1),
             },
-            SECRET_KEY,
+            SECRET_KEY, algorithm='HS256'
         )
         input_data["token"] = token
         del input_data['password']

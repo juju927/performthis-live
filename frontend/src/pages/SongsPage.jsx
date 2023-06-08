@@ -1,4 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react'
+import jwt_decode from 'jwt-decode'
 import { fetchData } from '../../helpers/common'
 import SongItem from '../components/SongItem'
 import pfp from '../images/pfp.jpg'
@@ -10,8 +11,9 @@ const SongLibraryPage = () => {
   const [songs, setSongs] = useState([])
 
   const getSongs = async () => {
-    console.log(userDetails.toucan)
-    const {ok, data} = await fetchData('user-songs/user/', userDetails.toucan, "GET")
+    const {ok, data} = await fetchData('user-songs/user/', userDetails.toucan, "POST", {
+      "user_id": jwt_decode(userDetails.toucan).id
+    })
 
     if (ok) {
       setSongs(data)

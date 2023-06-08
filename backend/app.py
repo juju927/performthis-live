@@ -4,7 +4,8 @@ from .extensions import (
     bcrypt,
     db,
     migrate, 
-    cors
+    cors,
+    mm
 )
 
 def create_app(config_file="config.py"):
@@ -15,6 +16,7 @@ def create_app(config_file="config.py"):
     db.init_app(app)
     migrate.init_app(app, db)
     cors.init_app(app)
+    mm.init_app(app)
   return app
 
 app = create_app()

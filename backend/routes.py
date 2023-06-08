@@ -33,7 +33,7 @@ songs.route('/<search_key>/')(get_songs_by_artist_or_title)
 user_songs = Blueprint('user_songs', __name__)
 user_songs.route('/', methods=['GET'])(get_all_user_songs) 
 user_songs.route('/', methods=['POST'])(post_user_songs)
-user_songs.route('/user/')(get_user_songs)
+user_songs.route('/user/', methods=['POST'])(get_user_songs)
 
 live_sessions = Blueprint('live_sessions', __name__)
 live_sessions.route('/', methods=['GET'])(get_all_live_sessions)
