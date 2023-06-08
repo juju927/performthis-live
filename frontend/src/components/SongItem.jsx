@@ -44,9 +44,11 @@ const SongItem = (props) => {
       </div>
 
       {/* delete button */}
+      {props.authorised && (
       <div className='flex-none w-fit btn btn-ghost' onClick={deleteSong}>
         <TrashIcon className="h-6 w-6 text-base-content" aria-hidden="true" />
       </div>
+      )}
 
       <SongRequestModal showSongRequestModal={showSongRequestModal} setShowSongRequestModal={setShowSongRequestModal} song_id={props.id} title={props.title} artist={props.artist} />
 

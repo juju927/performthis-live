@@ -2,6 +2,7 @@ from flask import request
 
 from ..models.UserSong import UserSong, UserSongSchema, UserSongDetailsSchema
 from ..models.Song import Song, SongSchema
+from ..models.User import User
 from ..extensions import db
 
 from ..middleware.auth import token_required
@@ -33,9 +34,16 @@ def get_all_user_songs():
 
 def get_user_songs():
     request_data = request.get_json()
+    print(request_data)
+    user = User.query.filter(User.username == request_data['username']).first()
+
+    if user is None:
+        return generate_response(
+            message="user not found", status=HTTP_404_NOT_FOUND
+        )
 
     songs = db.session.query(Song).join(UserSong).filter(
-    UserSong.user_id == request_data['user_id']).all()
+    UserSong.user_id == user.id).all()
     # songs = UserSong.query.with_entities(UserSong.song_id, UserSong.user_id, UserSong.id, Song.title, Song.artist).join(
     #     Song).filter(UserSong.user_id == request_data['user_id']).all()
     # print(songs)

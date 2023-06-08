@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useContext } from "react";
-import jwt_decode from "jwt-decode";
+import { useParams } from "react-router-dom";
+import jwt_decode from  "jwt-decode"
 import { fetchData } from "../../helpers/common";
 import { PlusCircleIcon } from "@heroicons/react/24/outline";
 
@@ -11,16 +12,18 @@ import pfp from "../images/pfp.jpg";
 
 const SongLibraryPage = () => {
   const userDetails = useContext(UserContext);
+  const {username} = useParams()
   const [songs, setSongs] = useState([]);
   const [showAddSongModal, setShowAddSongModal] = useState(false)
+  const [authorised, setAuthorised] = useState(false)
 
-  const getSongs = async () => {
+  const getSongs = async (username) => {
     const { ok, data } = await fetchData(
       "user-songs/user/",
       userDetails.toucan,
       "POST",
       {
-        user_id: jwt_decode(userDetails.toucan).id,
+        "username": username,
       }
     );
 
@@ -32,8 +35,20 @@ const SongLibraryPage = () => {
   };
 
   useEffect(() => {
-    getSongs();
+    if (!username) {
+      getSongs(jwt_decode(userDetails.toucan).username);
+    } else {
+      getSongs(username)
+    }
   }, [showAddSongModal]);
+
+  useEffect(()=> {
+    if (Object.keys(userDetails).length > 0) {
+      if (userDetails.username == username) {
+        setAuthorised(true)
+      }
+    }
+  }, [])
 
   return (
     <>
@@ -51,7 +66,7 @@ const SongLibraryPage = () => {
               <div className="pt-3 text-xs font-bold uppercase text-secondary tracking-wide">
                 Artist
               </div>
-              <div className="">name</div>
+              <div className="">{username}</div>
             </div>
           </div>
         </div>
@@ -107,12 +122,14 @@ const SongLibraryPage = () => {
           </div> */}
 
             {/* add */}
+            {authorised && (
             <button
               className="rounded-md btn btn-primary text-primary-content"
               onClick={()=> setShowAddSongModal(true)}
             >
               <PlusCircleIcon className="h-6 w-6 text-primary-content" /> Add song 
             </button>
+            )}
           </div>
 
           {/* song list */}
@@ -122,6 +139,7 @@ const SongLibraryPage = () => {
               key={idx}
               artist={song.artist}
               title={song.title}
+              authorised={authorised}
             />
           ))}
         </div>

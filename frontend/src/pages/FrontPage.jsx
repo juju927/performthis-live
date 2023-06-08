@@ -1,11 +1,13 @@
 import React, { useContext, useState } from "react";
 import jwt_decode from "jwt-decode";
 import { fetchData } from "../../helpers/common";
+import { useNavigate } from "react-router-dom";
 
 import UserContext from "../context/user";
 
 const FrontPage = (props) => {
   const userDetails = useContext(UserContext);
+  const navigate = useNavigate()
   const [form, setForm] = useState("register");
 
   const [username, setUsername] = useState("");
@@ -21,7 +23,9 @@ const FrontPage = (props) => {
 
     if (ok) {
       userDetails.setToucan(data.data.token);
+      
       props.setLoggedIn(true);
+      navigate("/songs")
     } else {
       console.log(data);
     }

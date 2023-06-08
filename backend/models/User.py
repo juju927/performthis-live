@@ -53,6 +53,7 @@ class User(db.Model):
 class UserSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = User
+        include_fk = True
         exclude = ["password"] # so password is not returned when queried
 
 class UserPublicSchema(SQLAlchemyAutoSchema):
