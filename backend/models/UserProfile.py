@@ -15,3 +15,4 @@ class UserProfile(db.Model):
 class UserProfileSchema(SQLAlchemyAutoSchema):
     class Meta:
         model = UserProfile
+        include_fk = True
