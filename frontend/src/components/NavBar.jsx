@@ -87,9 +87,9 @@ const NavBar = () => {
               </ul>
             </div>
           )}
-          <a className="btn btn-ghost normal-case text-xl text-base-content">
+          <NavLink to="/" className="btn btn-ghost normal-case text-xl text-base-content">
             Qriku
-          </a>
+          </NavLink>
         </div>
 
         {isPerformer && (

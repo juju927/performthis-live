@@ -131,7 +131,7 @@ const LivePage = () => {
             </>) : 
             (
             <>
-              <div className="text-center text-base-content text-base">
+              <div className="text-center text-base-content text-xl">
               { authorised ? 'You are currently' : `${username} is currently` }<br />
                 <span className="font-bold uppercase tracking-wide"> 💤 NOT taking requests 💤 </span>
               </div>
@@ -157,7 +157,7 @@ const LivePage = () => {
         </>)}
 
         <div className='btn' onClick={handleCheckOnline}>check online</div>
-        <div className='btn' onClick={getSongQueue}>refresh song queue</div>
+        <div className='btn' onClick={()=> live && getSongQueue}>refresh song queue</div>
       </div>
       
       
