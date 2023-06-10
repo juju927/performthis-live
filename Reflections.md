@@ -92,15 +92,15 @@ While we learned Django and express.js in class, the back-end was nicely partiti
 
 #### 🔐 back-end security
 
-With the requirements of implementing jwt-tokens, my ~~googling~~ extended research brought me to [Flask-praetorian](https://flask-praetorian.readthedocs.io/en/latest/) which I absolutely tried to make work for good 10 hours before ending up **completely uninstalling** because I just could not make it work. I ended up using [PyJWT](https://pyjwt.readthedocs.io/en/stable/) to create jwt-tokens, with the help of an online guide. Of course, I later find out that [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/) was the superior way of doing things that I didn't manage to implement but I'm going to write it here so I remember to use it in the future. 🙃 I used [bcrypt](https://flask-bcrypt.readthedocs.io/en/1.0.1/) to encrypt and decrypt the passwords that were saved in the database. This one I fully understood how to use. 😃 because it was gone through in class *(duh)*.
+With the requirements of implementing jwt-tokens, my ~~googling~~ extended research brought me to [Flask-praetorian](https://flask-praetorian.readthedocs.io/en/latest/) which I absolutely tried to make work for good 10 hours before ending up **completely uninstalling** because I just could not make it work. I ended up using [PyJWT](https://pyjwt.readthedocs.io/en/stable/) to create jwt-tokens, with the help of an online guide. Of course, I later find out that [Flask-JWT-Extended](https://flask-jwt-extended.readthedocs.io/en/stable/) was the superior way of doing things that I didn't manage to implement but I'm going to write it here so I remember to use it in the future. 🙃 I used [bcrypt](https://flask-bcrypt.readthedocs.io/en/1.0.1/) to hash the passwords that were saved in the database. This one I fully understood how to use. 😃 because it was gone through in class *(duh)*.
 
 #### 🗄️ database management
 
-I picked up [SQLAlchemy](https://www.sqlalchemy.org/) to query my PostgreSQL database. It was with it that I created tables and schemas (I think). Then, I used [Flask-Marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/) to de-serialise data gotten back from the database (I think). These 2 programs were exciting to work with to begin with, but after working with them more I kind of get the feeling that documentation writers are in cahoots with those fellas making tutorials on YouTube to make profits. I might also just be stupid.
+I picked up [SQLAlchemy](https://www.sqlalchemy.org/) to query my PostgreSQL database. It was also with it that I created tables and schemas (I think). Then, I used [Flask-Marshmallow](https://flask-marshmallow.readthedocs.io/en/latest/) to de-serialise data gotten back from the database (I think). These 2 programs were exciting to work with to begin with, but after working with them more I kind of get the feeling that documentation writers are in cahoots with those fellas making tutorials on YouTube to make profits. Searching for the syntax to query my database with this ORM was a nightmare. I might also just be stupid.
 
 ## 🧐 What's next?
 
-Even though the project has come to an end, I do intend to continue working on this project in the near future. Implementing more user stories, fixing up my styling, there's so much to do.
+Even though the project has come to an end, I do intend to continue working on this project in the near future. Implementing more user stories, fixing up my styling - there's so much to do!
 
 ## 💕
 
