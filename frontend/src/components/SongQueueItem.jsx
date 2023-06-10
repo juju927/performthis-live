@@ -44,7 +44,7 @@ const SongQueueItem = (props) => {
   }, [])
 
   return (
-    <div className={`w-100 h-auto flex m-3 rounded-md bg-base-300 gap-x-3 px-3 py-2 ${active && 'outline-4 outline-info outline-double'}`}>
+    <div className={`w-100 h-auto flex m-3 rounded-md bg-base-300 gap-x-3 px-3 py-2 ${active && 'outline-4 outline-info outline-double'} `}>
 
       {/* <div className='m-auto flex-none w-5'>
         <input type="checkbox" className="checkbox checkbox-secondary" />
@@ -54,6 +54,7 @@ const SongQueueItem = (props) => {
       <div className='flex flex-none w-fit text-accent'>
         <SparklesIcon className="h-6 w-6 text-accent" aria-hidden="true" /> {shoutouts.length}
       </div>
+
 
       <div className='flex-1 mx-3'>
         <div className='text-xl font-bold text-base-content'>{props.song.title}</div>
@@ -87,6 +88,7 @@ const SongQueueItem = (props) => {
         </>
       )}
 
+      
 
     </div>
   )

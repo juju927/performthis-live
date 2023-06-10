@@ -34,6 +34,7 @@ const LivePage = () => {
   }
 
   const getSongQueue = async () => {
+    console.log('got song queue')
     const { ok, data } = await fetchData('/song-queues/session/', undefined, "POST", {
       'live_session_id': session.id
     })
@@ -78,6 +79,7 @@ const LivePage = () => {
     
     if (ok) {
       setSession(data.data)
+      handleCheckOnline()
     } else {
       console.log(data)
     }
